@@ -37,7 +37,7 @@ class LightningIDE extends JFrame implements ActionListener {
         JScrollPane jsPane = JScrollPaneDocument.getNew();
 
         tabbedPane.addTab("Tab 1", jsPane);
-        //tabbedPane.addTab("Tab 2", JScrollPaneDocument.getNew());
+        tabbedPane.addTab("Tab 2", JScrollPaneDocument.getNew());
 
         pane.add(tabbedPane, BorderLayout.CENTER);
 

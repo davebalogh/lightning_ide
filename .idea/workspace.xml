@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2ba63cf-e2d9-4e83-b366-0d61594bb7c0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/lightning_ide/LightningIDE$1.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lightning_ide/LightningIDE.class" afterPath="$PROJECT_DIR$/out/production/lightning_ide/LightningIDE.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LightningIDE.java" afterPath="$PROJECT_DIR$/src/LightningIDE.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/helpers/JScrollPaneDocument.java" afterPath="$PROJECT_DIR$/src/helpers/JScrollPaneDocument.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +21,11 @@
       <file leaf-file-name="LightningIDE.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LightningIDE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="36" column="58" lean-forward="false" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+            <state relative-caret-position="125">
+              <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1875#1882#0" expanded="true" />
+                <element signature="e#1873#1880#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,8 +46,8 @@
       <file leaf-file-name="JScrollPaneDocument.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/helpers/JScrollPaneDocument.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="17" column="154" lean-forward="false" selection-start-line="17" selection-start-column="154" selection-end-line="17" selection-end-column="154" />
+            <state relative-caret-position="112">
+              <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -495,7 +499,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1875#1882#0" expanded="true" />
+            <element signature="e#1873#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -602,7 +606,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1875#1882#0" expanded="true" />
+            <element signature="e#1873#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -737,32 +741,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="43" lean-forward="false" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
-          <folding>
-            <element signature="e#97#98#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/javax/swing/plaf/basic/BasicTabbedPaneUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1288">
           <caret line="358" column="72" lean-forward="false" selection-start-line="358" selection-start-column="62" selection-end-line="358" selection-end-column="72" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LightningIDE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="36" column="58" lean-forward="false" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1875#1882#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -776,10 +759,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="43" lean-forward="false" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
+          <folding>
+            <element signature="e#97#98#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LightningIDE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1873#1880#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/helpers/JScrollPaneDocument.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="17" column="154" lean-forward="false" selection-start-line="17" selection-start-column="154" selection-end-line="17" selection-end-column="154" />
+        <state relative-caret-position="112">
+          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
