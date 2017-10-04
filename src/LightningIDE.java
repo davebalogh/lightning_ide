@@ -34,8 +34,10 @@ class LightningIDE extends JFrame implements ActionListener {
         tabbedPane.setBackground( new Color(49, 52, 64));
         tabbedPane.setUI(new CustomBasicTabbedPaneUI());
 
-        tabbedPane.addTab("Tab 1", JScrollPaneDocument.getNew());
-        tabbedPane.addTab("Tab 2", JScrollPaneDocument.getNew());
+        JScrollPane jsPane = JScrollPaneDocument.getNew();
+
+        tabbedPane.addTab("Tab 1", jsPane);
+        //tabbedPane.addTab("Tab 2", JScrollPaneDocument.getNew());
 
         pane.add(tabbedPane, BorderLayout.CENTER);
 
@@ -49,6 +51,7 @@ class LightningIDE extends JFrame implements ActionListener {
         openItem.addActionListener(this);
         fileMenu.add(openItem);
         menuBar.add(fileMenu);
+
         setJMenuBar(menuBar);
 
 
