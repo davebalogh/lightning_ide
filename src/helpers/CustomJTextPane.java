@@ -12,8 +12,8 @@ public class CustomJTextPane extends JTextPane {
     public boolean getWasEdited(){
         return wasEdited;
     }
-    public void setWasEdited(boolean wasEdited){
-        wasEdited = wasEdited;
+    public void setWasEdited(boolean newWasEdited){
+        wasEdited = newWasEdited;
     }
 
     public CustomJTextPane(DefaultStyledDocument doc){

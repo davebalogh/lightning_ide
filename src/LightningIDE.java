@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import com.apple.eawt.Application;
 import com.sun.tools.javac.util.List;
+import exceptions.FileErrorException;
 import helpers.*;
 
 class LightningIDE extends JFrame implements ActionListener {
@@ -34,7 +35,7 @@ class LightningIDE extends JFrame implements ActionListener {
         JScrollPaneDocument jsPane = new JScrollPaneDocument();
 
         scrollPaneList.add(jsPane);
-        tabbedPane.addTab("Tab 1", jsPane);
+        tabbedPane.addTab("Tab-1", jsPane);
 
         pane.add(tabbedPane, BorderLayout.CENTER);
 
@@ -83,43 +84,21 @@ class LightningIDE extends JFrame implements ActionListener {
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-
-                System.out.println("Opening: " + file.getAbsolutePath());
-
-
-
                 File archivo = new File(file.getAbsolutePath());
-                StringBuffer resultado = new StringBuffer();
-                FileReader fr = null;
-                BufferedReader br = null;
+
+                JScrollPaneDocument jsPane = null;
                 try {
-                    fr = new FileReader(archivo);
-                    br = new BufferedReader(fr);
-                    String s = null;
-                    while ((s = br.readLine()) != null) {
-                        resultado.append(s);
-                        resultado.append("\r\n");
-                    }
+                    jsPane = new JScrollPaneDocument(archivo);
+                    int tabCount = tabbedPane.getTabCount() + 1;
+                    String tabName = file.getName();
+                    tabbedPane.addTab(tabName, jsPane);
+                    tabbedPane.setSelectedIndex(tabCount-1);
 
-                } catch (IOException e1) {
+                    scrollPaneList.add(jsPane);
+                } catch (FileErrorException e1) {
                     e1.printStackTrace();
-                } finally {
-                    try {
-                        fr.close();
-                        br.close();
-
-                    } catch (IOException e2) {
-                        e2.printStackTrace();
-                    }
                 }
 
-                JScrollPaneDocument jsPane = new JScrollPaneDocument(String.valueOf(resultado));
-                int tabCount = tabbedPane.getTabCount() + 1;
-                String tabName = file.getName();
-                tabbedPane.addTab(tabName, jsPane);
-                tabbedPane.setSelectedIndex(tabCount-1);
-
-                scrollPaneList.add(jsPane);
 
             } else {
                 System.out.println("Open command cancelled by user.");
@@ -127,15 +106,26 @@ class LightningIDE extends JFrame implements ActionListener {
         }else if(e.getActionCommand().equalsIgnoreCase("New")){
             JScrollPaneDocument jsPane = new JScrollPaneDocument();
             int tabCount = tabbedPane.getTabCount() + 1;
-            String tabName = "Tab " + tabCount;
+            String tabName = "Tab-" + tabCount;
             tabbedPane.addTab(tabName, jsPane);
             tabbedPane.setSelectedIndex(tabCount-1);
             scrollPaneList.add(jsPane);
         }else if(e.getActionCommand().equalsIgnoreCase("Close Tab")){
-            scrollPaneList.remove(tabbedPane.getSelectedIndex());
-            tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
+
+            JScrollPaneDocument selectedTab = scrollPaneList.get(tabbedPane.getSelectedIndex());
+
+            if(selectedTab.getTextPane().getWasEdited() && !selectedTab.getIsNewDocument()){
+                String message = "Do you want to save changes?";
+                int answer = JOptionPane.showConfirmDialog(this, message);
+                if (answer == JOptionPane.NO_OPTION) {
+                    scrollPaneList.remove(tabbedPane.getSelectedIndex());
+                    tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
+                }
+            }
+            else{
+                scrollPaneList.remove(tabbedPane.getSelectedIndex());
+                tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
+            }
         }
-
-
     }
 }

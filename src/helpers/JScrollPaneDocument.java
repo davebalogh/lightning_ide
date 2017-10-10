@@ -1,15 +1,31 @@
 package helpers;
 
+import exceptions.FileErrorException;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class JScrollPaneDocument extends JScrollPane {
     DefaultStyledDocument styledDocument = new CustomStyledDocument();
     CustomJTextPane textPane;
+    boolean isNewDocument;
+    File file;
+
+    public boolean getIsNewDocument(){
+        return isNewDocument;
+    }
+
+    public File getFile(){
+        return file;
+    }
 
     public CustomJTextPane getTextPane(){
         return textPane;
@@ -17,10 +33,44 @@ public class JScrollPaneDocument extends JScrollPane {
 
     public JScrollPaneDocument(){
         this("");
+        isNewDocument = true;
+    }
+
+    public JScrollPaneDocument(File existingFile) throws FileErrorException {
+        file = existingFile;
+        StringBuffer resultado = new StringBuffer();
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String s = null;
+            while ((s = br.readLine()) != null) {
+                resultado.append(s);
+                resultado.append("\r\n");
+            }
+
+        } catch (IOException e1) {
+            throw new FileErrorException("Error al intentar abrir el archivo");
+        } finally {
+            try {
+                fr.close();
+                br.close();
+
+            } catch (IOException e2) {
+                throw new FileErrorException("Error al intentar cerrar el archivo");
+            }
+        }
+        initialize(String.valueOf(resultado));
+        isNewDocument = false;
     }
 
     public JScrollPaneDocument(String originalState){
         super();
+        initialize(originalState);
+    }
+
+    private void initialize(String originalState){
         textPane = new CustomJTextPane(styledDocument, originalState);
         JPanel noWrapPanel = new JPanel( new BorderLayout() );
         noWrapPanel.add( textPane );
