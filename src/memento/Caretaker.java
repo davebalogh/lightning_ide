@@ -22,7 +22,6 @@ public class Caretaker {
 
             currentStateNumber = currentStateNumber - 1;
         }
-
         savedStates.add(m);
     }
 

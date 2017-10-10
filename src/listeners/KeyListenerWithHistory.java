@@ -3,26 +3,21 @@ package listeners;
 import exceptions.MementoNotFoundException;
 import helpers.CustomJTextPane;
 import helpers.History;
-import memento.Memento;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class CustomKeyListener implements KeyListener {
+public class KeyListenerWithHistory implements KeyListener {
 
     private CustomJTextPane textPane;
     private History history;
-
-    public CustomKeyListener(CustomJTextPane newTextPane, String originalState){
+    private int caretPosition;
+    public KeyListenerWithHistory(CustomJTextPane newTextPane, History savedHistory){
         textPane = newTextPane;
-        textPane.addKeyListener(this);
-        history = new History(originalState);
+        history = savedHistory;
+        caretPosition = 0;
     }
 
-    public CustomKeyListener(CustomJTextPane newTextPane){
-        this(newTextPane, "");
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -36,17 +31,28 @@ public class CustomKeyListener implements KeyListener {
 
         if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK ) != 0)) {
             textPane.setText(history.getUndo());
+
+            textPane.setCaretPosition(caretPosition+1);
+            caretPosition--;
         }
         else if ((e.getKeyCode() == KeyEvent.VK_Y) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 
             try {
                 textPane.setText(history.getRedo());
+                caretPosition++;
+                textPane.setCaretPosition(caretPosition+2);
+
             } catch (MementoNotFoundException e1) {
                 e1.printStackTrace();
             }
 
         }else if(e.getKeyChar() != '\uFFFF'){
-            history.save(textPane.getText() + e.getKeyChar());
+            int keyLocation = textPane.getCaretPosition();
+            caretPosition = keyLocation - 1;
+
+            String allText = textPane.getText();
+            allText = new StringBuilder(allText).insert(keyLocation, e.getKeyChar()).toString() ;
+            history.save(allText);
         }
     }
 

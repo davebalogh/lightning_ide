@@ -1,6 +1,7 @@
 package helpers;
 
-import listeners.CustomKeyListener;
+import listeners.KeyListenerWithHistory;
+import listeners.DocumentListenerWithHistory;
 
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
@@ -8,6 +9,7 @@ import java.awt.*;
 
 public class CustomJTextPane extends JTextPane {
     private boolean wasEdited = false;
+    private History history;
 
     public boolean getWasEdited(){
         return wasEdited;
@@ -35,11 +37,12 @@ public class CustomJTextPane extends JTextPane {
     }
 
     private void initialize(String originalState){
+        history = new History(originalState);
         this.setBackground(new Color(49, 52, 64));
         this.setForeground(Color.white);
         this.setCaretColor(Color.white);
         this.repaint();
 
-        this.addKeyListener(new CustomKeyListener(this, originalState));
+        this.addKeyListener(new KeyListenerWithHistory(this, history));
     }
 }
