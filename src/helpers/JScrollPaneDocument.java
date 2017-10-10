@@ -7,25 +7,38 @@ import javax.swing.plaf.metal.MetalScrollBarUI;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
 
-public class JScrollPaneDocument  {
+public class JScrollPaneDocument extends JScrollPane {
+    DefaultStyledDocument styledDocument = new CustomStyledDocument();
+    CustomJTextPane textPane;
 
+    public CustomJTextPane getTextPane(){
+        return textPane;
+    }
 
-    public static JScrollPane getNew(){
+    public JScrollPaneDocument(){
+        this("");
+    }
 
-        DefaultStyledDocument styledDocument = new CustomStyledDocument();
+    public JScrollPaneDocument(String originalState){
+        super();
+        textPane = new CustomJTextPane(styledDocument, originalState);
+        JPanel noWrapPanel = new JPanel( new BorderLayout() );
+        noWrapPanel.add( textPane );
 
-        JTextPane textPane = new CustomJTextPane(styledDocument);
-        JScrollPane scpane = new JScrollPane(textPane);
+        this.setViewportView(noWrapPanel);
 
+        this.getVerticalScrollBar().setUnitIncrement(12);
+        this.getVerticalScrollBar().setUI(new MetalScrollBarUI());
+        this.getVerticalScrollBar().setBackground(new Color(38,40,49));
+        this.getHorizontalScrollBar().setPreferredSize(new Dimension(0,0));
+        this.getHorizontalScrollBar().setUnitIncrement(12);
 
-        scpane.getVerticalScrollBar().setUI(new MetalScrollBarUI());
-        scpane.getVerticalScrollBar().setBackground(new Color(38,40,49));
-
-        scpane.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createMatteBorder(0,0,0,1, Color.black),BorderFactory.createMatteBorder(0,1,1,1, Color.white) ));
+        this.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createMatteBorder(0,0,0,1, Color.black),BorderFactory.createMatteBorder(0,1,1,1, Color.white) ));
 
         TextLineNumber textLineNumber = new TextLineNumber(textPane);
-        scpane.setRowHeaderView( textLineNumber );
+        this.setRowHeaderView( textLineNumber );
 
-        return scpane;
+        textPane.setText(originalState);
+        textPane.setCaretPosition(0);
     }
 }

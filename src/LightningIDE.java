@@ -1,24 +1,21 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.GeneralPath;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
-import javax.swing.text.*;
 
 import com.apple.eawt.Application;
+import com.sun.tools.javac.util.List;
 import helpers.*;
-import memento.Caretaker;
-import memento.Originator;
 
 class LightningIDE extends JFrame implements ActionListener {
 
-    final JFileChooser fc = new JFileChooser();
+    final JFileChooser fileChooser = new JFileChooser();
+    JTabbedPane tabbedPane;
+    ArrayList<JScrollPaneDocument> scrollPaneList = new ArrayList();
 
 
     public LightningIDE() {
@@ -30,14 +27,14 @@ class LightningIDE extends JFrame implements ActionListener {
         Container pane = getContentPane();
         pane.setBackground(new Color(38,40,49));
 
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
         tabbedPane.setBackground( new Color(49, 52, 64));
         tabbedPane.setUI(new CustomBasicTabbedPaneUI());
 
-        JScrollPane jsPane = JScrollPaneDocument.getNew();
+        JScrollPaneDocument jsPane = new JScrollPaneDocument();
 
+        scrollPaneList.add(jsPane);
         tabbedPane.addTab("Tab 1", jsPane);
-        tabbedPane.addTab("Tab 2", JScrollPaneDocument.getNew());
 
         pane.add(tabbedPane, BorderLayout.CENTER);
 
@@ -50,6 +47,15 @@ class LightningIDE extends JFrame implements ActionListener {
         JMenuItem openItem = new JMenuItem("Open");
         openItem.addActionListener(this);
         fileMenu.add(openItem);
+
+        JMenuItem newItem = new JMenuItem("New");
+        newItem.addActionListener(this);
+        fileMenu.add(newItem);
+
+        JMenuItem closeTabItem = new JMenuItem("Close Tab");
+        closeTabItem.addActionListener(this);
+        fileMenu.add(closeTabItem);
+
         menuBar.add(fileMenu);
 
         setJMenuBar(menuBar);
@@ -71,14 +77,65 @@ class LightningIDE extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        int returnVal = fc.showOpenDialog(this);
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
+        if(e.getActionCommand().equalsIgnoreCase("Open")){
+            int returnVal = fileChooser.showOpenDialog(this);
 
-            System.out.println("Opening: " + file.getAbsolutePath());
-        } else {
-            System.out.println("Open command cancelled by user.");
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+
+                System.out.println("Opening: " + file.getAbsolutePath());
+
+
+
+                File archivo = new File(file.getAbsolutePath());
+                StringBuffer resultado = new StringBuffer();
+                FileReader fr = null;
+                BufferedReader br = null;
+                try {
+                    fr = new FileReader(archivo);
+                    br = new BufferedReader(fr);
+                    String s = null;
+                    while ((s = br.readLine()) != null) {
+                        resultado.append(s);
+                        resultado.append("\r\n");
+                    }
+
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } finally {
+                    try {
+                        fr.close();
+                        br.close();
+
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
+                    }
+                }
+
+                JScrollPaneDocument jsPane = new JScrollPaneDocument(String.valueOf(resultado));
+                int tabCount = tabbedPane.getTabCount() + 1;
+                String tabName = file.getName();
+                tabbedPane.addTab(tabName, jsPane);
+                tabbedPane.setSelectedIndex(tabCount-1);
+
+                scrollPaneList.add(jsPane);
+
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+        }else if(e.getActionCommand().equalsIgnoreCase("New")){
+            JScrollPaneDocument jsPane = new JScrollPaneDocument();
+            int tabCount = tabbedPane.getTabCount() + 1;
+            String tabName = "Tab " + tabCount;
+            tabbedPane.addTab(tabName, jsPane);
+            tabbedPane.setSelectedIndex(tabCount-1);
+            scrollPaneList.add(jsPane);
+        }else if(e.getActionCommand().equalsIgnoreCase("Close Tab")){
+            scrollPaneList.remove(tabbedPane.getSelectedIndex());
+            tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
         }
+
+
     }
 }

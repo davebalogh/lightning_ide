@@ -1,6 +1,7 @@
 package listeners;
 
 import exceptions.MementoNotFoundException;
+import helpers.CustomJTextPane;
 import helpers.History;
 import memento.Memento;
 
@@ -10,13 +11,17 @@ import java.awt.event.KeyListener;
 
 public class CustomKeyListener implements KeyListener {
 
-    private JTextPane textPane;
+    private CustomJTextPane textPane;
     private History history;
 
-    public CustomKeyListener(JTextPane newTextPane){
+    public CustomKeyListener(CustomJTextPane newTextPane, String originalState){
         textPane = newTextPane;
         textPane.addKeyListener(this);
-        history = new History();
+        history = new History(originalState);
+    }
+
+    public CustomKeyListener(CustomJTextPane newTextPane){
+        this(newTextPane, "");
     }
 
     @Override
@@ -26,6 +31,9 @@ public class CustomKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        textPane.setWasEdited(true);
+
         if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK ) != 0)) {
             textPane.setText(history.getUndo());
         }
