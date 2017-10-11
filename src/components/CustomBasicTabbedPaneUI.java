@@ -1,5 +1,7 @@
 package components;
 
+import listeners.CloseTabActionListener;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +12,6 @@ import java.awt.*;
 
 public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
     JTabbedPane parentJTabbedPane;
-    Rectangle xRect;
 
     public CustomBasicTabbedPaneUI(JTabbedPane instanceOfJTabbedPane){
         //super();
@@ -49,6 +50,7 @@ public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
         closeButton.setContentAreaFilled(false);
         closeButton.setBorder(BorderFactory.createEmptyBorder(0, 5,0,0));
         closeButton.setBorderPainted(false);
+        closeButton.addActionListener(new CloseTabActionListener((JTabbedPaneCustom) parentJTabbedPane));
 
         cont.add(jLabel);
         cont.add(closeButton);

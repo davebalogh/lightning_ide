@@ -42,8 +42,13 @@ public class KeyListenerWithHistory implements KeyListener {
 
             textPane.setText(history.getUndo());
 
-            textPane.setCaretPosition(caretPosition+1);
-            caretPosition--;
+            try {
+                textPane.setCaretPosition(caretPosition+1);
+                caretPosition--;
+            }catch (IllegalArgumentException ex){
+                System.out.println("IllegalArgumentException");
+            }
+
         }
         else if ((e.getKeyCode() == KeyEvent.VK_Y) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
 
@@ -54,6 +59,8 @@ public class KeyListenerWithHistory implements KeyListener {
 
             } catch (MementoNotFoundException e1) {
                 System.out.println(e1.getMessage());
+            }catch (IllegalArgumentException ex){
+                System.out.println("IllegalArgumentException");
             }
 
         }else if ((e.getKeyCode() == KeyEvent.VK_S) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {

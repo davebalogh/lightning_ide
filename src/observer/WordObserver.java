@@ -37,7 +37,7 @@ public class WordObserver implements Observable {
 
     @Override
     public void update(String word, int offset, int length) {
-        if(word.trim().equals(wordName)){
+        if(word.trim().toLowerCase().equals(wordName.trim().toLowerCase())){
             styledDocument.setCharacterAttributes(offset, length, attributeSet, false);
         }
     }
