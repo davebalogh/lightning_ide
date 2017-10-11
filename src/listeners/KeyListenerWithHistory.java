@@ -1,9 +1,14 @@
 package listeners;
 
+import exceptions.FileErrorException;
 import exceptions.MementoNotFoundException;
+import exceptions.SaveFileException;
 import helpers.CustomJTextPane;
 import helpers.History;
+import helpers.JScrollPaneDocument;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -49,6 +54,22 @@ public class KeyListenerWithHistory implements KeyListener {
 
             } catch (MementoNotFoundException e1) {
                 System.out.println(e1.getMessage());
+            }
+
+        }else if ((e.getKeyCode() == KeyEvent.VK_S) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
+            Container auxContainer = textPane.getParent().getParent().getParent();
+            if(auxContainer instanceof JScrollPaneDocument){
+                JScrollPaneDocument jScrollPaneDocument = (JScrollPaneDocument)auxContainer;
+                try {
+                    jScrollPaneDocument.saveAndCloseFile();
+                } catch (SaveFileException e1) {
+                    JOptionPane.showMessageDialog(null, "Error saving the file");
+                } catch (FileErrorException e1) {
+                    JOptionPane.showMessageDialog(null, "Error closing the file");
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error. Try again later");
             }
 
         }else if(e.getKeyChar() != '\uFFFF'){

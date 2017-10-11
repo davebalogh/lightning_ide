@@ -153,7 +153,6 @@ class LightningIDE extends JFrame implements ActionListener {
 
             try {
                 selectedDocument.saveAndCloseFile();
-                selectedDocument.getTextPane().setWasEdited(false);
             } catch (SaveFileException e1) {
                 JOptionPane.showMessageDialog(this, "Error saving the file");
             } catch (FileErrorException e1) {

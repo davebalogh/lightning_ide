@@ -28,19 +28,12 @@ public class CustomJTextPane extends JTextPane {
         wasEdited = newWasEdited;
     }
 
-    public CustomJTextPane(DefaultStyledDocument doc){
-        super(doc);
-        initialize();
-    }
 
     public CustomJTextPane(DefaultStyledDocument doc, String originalState){
         super(doc);
         initialize(originalState);
     }
 
-    public CustomJTextPane(){
-        initialize();
-    }
 
     private void initialize(){
         initialize("");

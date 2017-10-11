@@ -27,7 +27,7 @@ public class JScrollPaneDocument extends JScrollPane {
             try {
                 writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
                 writer.write( textPane.getText());
-
+                getTextPane().setWasEdited(false);
             }
             catch ( IOException e) {
                 throw new SaveFileException();
