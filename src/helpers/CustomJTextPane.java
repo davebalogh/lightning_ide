@@ -15,14 +15,12 @@ public class CustomJTextPane extends JTextPane {
         return wasEdited;
     }
     public void setWasEdited(boolean newWasEdited){
-        if(!wasEdited){
+        if(wasEdited != newWasEdited){
             Container tabContainer = getParent().getParent().getParent().getParent();
 
             if(tabContainer instanceof JTabbedPane){
                 JTabbedPane tabbedPane = (JTabbedPane)tabContainer;
                 tabbedPane.repaint();
-
-
             }
         }
 

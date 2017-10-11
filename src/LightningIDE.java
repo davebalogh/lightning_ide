@@ -58,6 +58,10 @@ class LightningIDE extends JFrame implements ActionListener {
         closeTabItem.addActionListener(this);
         fileMenu.add(closeTabItem);
 
+        JMenuItem saveTabItem = new JMenuItem("Save Tab");
+        saveTabItem.addActionListener(this);
+        fileMenu.add(saveTabItem);
+
         menuBar.add(fileMenu);
 
         setJMenuBar(menuBar);
@@ -141,6 +145,19 @@ class LightningIDE extends JFrame implements ActionListener {
             else{
                 scrollPaneList.remove(tabbedPane.getSelectedIndex());
                 tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
+            }
+        }else if(e.getActionCommand().equalsIgnoreCase("Save Tab")){
+
+            int selectedIndex = tabbedPane.getSelectedIndex();
+            JScrollPaneDocument selectedDocument = scrollPaneList.get(selectedIndex);
+
+            try {
+                selectedDocument.saveAndCloseFile();
+                selectedDocument.getTextPane().setWasEdited(false);
+            } catch (SaveFileException e1) {
+                JOptionPane.showMessageDialog(this, "Error saving the file");
+            } catch (FileErrorException e1) {
+                JOptionPane.showMessageDialog(this, "Error closing the file");
             }
         }
     }

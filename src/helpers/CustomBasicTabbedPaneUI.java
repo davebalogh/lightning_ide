@@ -32,8 +32,8 @@ public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
         }
         Font tabFont = new Font("Tahoma", Font.PLAIN, 11);
 
-        int selectedIndex = parentJTabbedPane.getSelectedIndex();
-        Component selectedComponent = parentJTabbedPane.getSelectedComponent();
+
+        Component selectedComponent = parentJTabbedPane.getComponent(tabIndex);
         if(selectedComponent instanceof JScrollPaneDocument){
             JScrollPaneDocument scrollPaneDocument = (JScrollPaneDocument)selectedComponent;
             CustomJTextPane jTextPane = scrollPaneDocument.getTextPane();
