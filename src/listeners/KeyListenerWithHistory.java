@@ -28,7 +28,7 @@ public class KeyListenerWithHistory implements KeyListener {
 
         textPane.setWasEdited(true);
 
-        if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK ) != 0)) {
+        if ((e.getKeyCode() == KeyEvent.VK_Z) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
 
             if(history.getLastAction() == History.LastAction.ADD){
                 String textToSave = textPane.getText();
@@ -40,7 +40,7 @@ public class KeyListenerWithHistory implements KeyListener {
             textPane.setCaretPosition(caretPosition+1);
             caretPosition--;
         }
-        else if ((e.getKeyCode() == KeyEvent.VK_Y) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+        else if ((e.getKeyCode() == KeyEvent.VK_Y) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
 
             try {
                 textPane.setText(history.getRedo());

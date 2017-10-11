@@ -10,6 +10,7 @@ import javax.swing.*;
 import com.apple.eawt.Application;
 import com.sun.tools.javac.util.List;
 import exceptions.FileErrorException;
+import exceptions.SaveFileException;
 import helpers.*;
 
 class LightningIDE extends JFrame implements ActionListener {
@@ -30,7 +31,7 @@ class LightningIDE extends JFrame implements ActionListener {
 
         tabbedPane = new JTabbedPane();
         tabbedPane.setBackground( new Color(49, 52, 64));
-        tabbedPane.setUI(new CustomBasicTabbedPaneUI());
+        tabbedPane.setUI(new CustomBasicTabbedPaneUI(tabbedPane));
 
         JScrollPaneDocument jsPane = new JScrollPaneDocument();
 
@@ -120,6 +121,21 @@ class LightningIDE extends JFrame implements ActionListener {
                 if (answer == JOptionPane.NO_OPTION) {
                     scrollPaneList.remove(tabbedPane.getSelectedIndex());
                     tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
+                }else if (answer == JOptionPane.YES_OPTION) {
+
+                    int selectedIndex = tabbedPane.getSelectedIndex();
+                    JScrollPaneDocument selectedDocument = scrollPaneList.get(selectedIndex);
+
+                    try {
+                        selectedDocument.saveAndCloseFile();
+                        scrollPaneList.remove(selectedIndex);
+                        tabbedPane.removeTabAt(selectedIndex);
+                    } catch (SaveFileException e1) {
+                        JOptionPane.showMessageDialog(this, "Error saving the file");
+                    } catch (FileErrorException e1) {
+                        JOptionPane.showMessageDialog(this, "Error closing the file");
+                    }
+
                 }
             }
             else{

@@ -1,6 +1,7 @@
 package helpers;
 
 import exceptions.FileErrorException;
+import exceptions.SaveFileException;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -8,10 +9,7 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class JScrollPaneDocument extends JScrollPane {
     DefaultStyledDocument styledDocument = new CustomStyledDocument();
@@ -21,6 +19,30 @@ public class JScrollPaneDocument extends JScrollPane {
 
     public boolean getIsNewDocument(){
         return isNewDocument;
+    }
+
+    public void saveAndCloseFile() throws SaveFileException, FileErrorException {
+        if(!isNewDocument){
+            BufferedWriter writer = null;
+            try {
+                writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
+                writer.write( textPane.getText());
+
+            }
+            catch ( IOException e) {
+                throw new SaveFileException();
+            }
+            finally {
+                try {
+                    if ( writer != null) {
+                        writer.close();
+                    }
+                }
+                catch ( IOException e) {
+                    throw new FileErrorException();
+                }
+            }
+        }
     }
 
     public File getFile(){
