@@ -1,5 +1,6 @@
-package helpers;
+package components;
 
+import helpers.History;
 import listeners.KeyListenerWithHistory;
 import listeners.DocumentListenerWithHistory;
 

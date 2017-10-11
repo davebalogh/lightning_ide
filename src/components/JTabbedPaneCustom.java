@@ -1,7 +1,5 @@
 package components;
 
-import helpers.CustomBasicTabbedPaneUI;
-import helpers.JScrollPaneDocument;
 import listeners.ChangeListenerForTabbedPane;
 
 import javax.swing.*;

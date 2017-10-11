@@ -1,6 +1,6 @@
 package listeners;
 
-import helpers.CustomJTextPane;
+import components.CustomJTextPane;
 import helpers.History;
 
 import javax.swing.event.DocumentEvent;

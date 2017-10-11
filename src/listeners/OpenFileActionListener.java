@@ -2,9 +2,8 @@ package listeners;
 
 import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
-import helpers.JScrollPaneDocument;
+import components.JScrollPaneDocument;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

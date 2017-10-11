@@ -3,9 +3,9 @@ package listeners;
 import exceptions.FileErrorException;
 import exceptions.MementoNotFoundException;
 import exceptions.SaveFileException;
-import helpers.CustomJTextPane;
+import components.CustomJTextPane;
 import helpers.History;
-import helpers.JScrollPaneDocument;
+import components.JScrollPaneDocument;
 
 import javax.swing.*;
 import java.awt.*;

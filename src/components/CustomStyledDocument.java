@@ -1,4 +1,4 @@
-package helpers;
+package components;
 
 import interfaces.Observable;
 import observer.Subject;

@@ -1,11 +1,9 @@
-package helpers;
+package components;
 
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;

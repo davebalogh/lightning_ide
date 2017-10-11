@@ -3,7 +3,7 @@ package listeners;
 import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
-import helpers.JScrollPaneDocument;
+import components.JScrollPaneDocument;
 
 import javax.swing.*;
 import java.awt.*;
