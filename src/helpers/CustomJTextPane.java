@@ -25,7 +25,12 @@ public class CustomJTextPane extends JTextPane {
                     JPanel container = (JPanel)comp;
                     Component labelComponent = container.getComponent(0);
                     if(labelComponent instanceof JLabel){
-                        ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.ITALIC, 11));
+                        if(newWasEdited){
+                            ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.ITALIC, 11));
+                        }
+                        else{
+                            ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.PLAIN, 11));
+                        }
                     }
                 }
             }
@@ -52,6 +57,7 @@ public class CustomJTextPane extends JTextPane {
         this.setForeground(Color.white);
         this.setCaretColor(Color.white);
         this.repaint();
+        this.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
         this.addKeyListener(new KeyListenerWithHistory(this, history));
     }

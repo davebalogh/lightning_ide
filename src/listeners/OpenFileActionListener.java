@@ -1,0 +1,47 @@
+package listeners;
+
+import components.JTabbedPaneCustom;
+import exceptions.FileErrorException;
+import helpers.JScrollPaneDocument;
+
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+public class OpenFileActionListener implements ActionListener {
+    final JFileChooser fileChooser = new JFileChooser();
+    private JTabbedPaneCustom tabbedPane;
+
+    public OpenFileActionListener(JTabbedPaneCustom instanceOfTabbedPane){
+        tabbedPane = instanceOfTabbedPane;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int returnVal = fileChooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            File archivo = new File(file.getAbsolutePath());
+
+            JScrollPaneDocument jsPane = null;
+            try {
+                jsPane = new JScrollPaneDocument(archivo);
+                int tabCount = tabbedPane.getTabCount() + 1;
+                String tabName = file.getName();
+                tabbedPane.addTab(tabName, jsPane);
+                tabbedPane.setSelectedIndex(tabCount-1);
+
+                //scrollPaneList.add(jsPane);
+            } catch (FileErrorException e1) {
+                e1.printStackTrace();
+            }
+
+
+        } else {
+            System.out.println("Open command cancelled by user.");
+        }
+    }
+}

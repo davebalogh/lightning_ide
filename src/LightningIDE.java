@@ -11,185 +11,30 @@ import javax.swing.event.ChangeListener;
 
 import com.apple.eawt.Application;
 import com.sun.tools.javac.util.List;
+import components.JMenuBarCustom;
+import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
 import helpers.*;
+import listeners.*;
 
-class LightningIDE extends JFrame implements ActionListener {
+class LightningIDE extends JFrame{
 
-    final JFileChooser fileChooser = new JFileChooser();
-    JTabbedPane tabbedPane;
-    ArrayList<JScrollPaneDocument> scrollPaneList = new ArrayList();
-
+    JTabbedPaneCustom tabbedPane;
 
     public LightningIDE() {
         super("Lightning IDE");
-        setSize(600, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        Container pane = getContentPane();
-        pane.setBackground(new Color(38,40,49));
 
-        tabbedPane = new JTabbedPane();
-        tabbedPane.setBackground( new Color(49, 52, 64));
-        tabbedPane.setUI(new CustomBasicTabbedPaneUI(tabbedPane));
+        Configurations.initializeSettings(this);
 
-        JScrollPaneDocument jsPane = new JScrollPaneDocument();
-        jsPane.setName("Tab-1");
-        scrollPaneList.add(jsPane);
+        tabbedPane = new JTabbedPaneCustom();
+        tabbedPane.createNewEmptyTab();
 
-        tabbedPane.addTab("Tab-1", jsPane);
+        getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 
-        ChangeListener changeListener = new ChangeListener() {
-            public void stateChanged(ChangeEvent changeEvent) {
-                JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
-                int index = sourceTabbedPane.getSelectedIndex();
-                for(int x = 0; x<sourceTabbedPane.getTabCount(); x++){
-
-                    Component comp = sourceTabbedPane.getTabComponentAt(x);
-                    if(comp instanceof JPanel){
-                        JPanel container = (JPanel)comp;
-                        Component labelComponent = container.getComponent(0);
-                        if(labelComponent instanceof JLabel){
-                            if(x != index){
-                                ((JLabel)labelComponent).setForeground(new Color(110,113,127));
-                            }
-                            else{
-                                ((JLabel)labelComponent).setForeground(new Color(215,216,224));
-                            }
-                        }
-                    }
-
-                }
-                System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
-            }
-        };
-        tabbedPane.addChangeListener(changeListener);
-
-        pane.add(tabbedPane, BorderLayout.CENTER);
-
-
-
-        //menu bar
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem openItem = new JMenuItem("Open");
-        openItem.addActionListener(this);
-        fileMenu.add(openItem);
-
-        JMenuItem newItem = new JMenuItem("New");
-        newItem.addActionListener(this);
-        fileMenu.add(newItem);
-
-        JMenuItem closeTabItem = new JMenuItem("Close Tab");
-        closeTabItem.addActionListener(this);
-        fileMenu.add(closeTabItem);
-
-        JMenuItem saveTabItem = new JMenuItem("Save Tab");
-        saveTabItem.addActionListener(this);
-        fileMenu.add(saveTabItem);
-
-        menuBar.add(fileMenu);
-
-        setJMenuBar(menuBar);
-
-
-        //icons
-        String pathToImageSortBy = "resources/code-text-edit-mode-100.png";
-        ImageIcon SortByIcon = new ImageIcon(getClass().getClassLoader().getResource(pathToImageSortBy));
-        ArrayList<Image> icons = new ArrayList<Image>();
-        icons.add(SortByIcon.getImage());
-        this.setIconImage(SortByIcon.getImage());
-        this.setIconImages(icons);
-
-        Application application = Application.getApplication();
-        application.setDockIconImage(SortByIcon.getImage());
+        setJMenuBar(new JMenuBarCustom(tabbedPane));
 
         setVisible(true);
-
-    }
-
-    public void actionPerformed(ActionEvent e) {
-
-        if(e.getActionCommand().equalsIgnoreCase("Open")){
-            int returnVal = fileChooser.showOpenDialog(this);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                File archivo = new File(file.getAbsolutePath());
-
-                JScrollPaneDocument jsPane = null;
-                try {
-                    jsPane = new JScrollPaneDocument(archivo);
-                    int tabCount = tabbedPane.getTabCount() + 1;
-                    String tabName = file.getName();
-                    tabbedPane.addTab(tabName, jsPane);
-                    tabbedPane.setSelectedIndex(tabCount-1);
-
-                    scrollPaneList.add(jsPane);
-                } catch (FileErrorException e1) {
-                    e1.printStackTrace();
-                }
-
-
-            } else {
-                System.out.println("Open command cancelled by user.");
-            }
-        }else if(e.getActionCommand().equalsIgnoreCase("New")){
-            JScrollPaneDocument jsPane = new JScrollPaneDocument();
-            int tabCount = tabbedPane.getTabCount() + 1;
-            String tabName = "Tab-" + tabCount;
-            jsPane.setName(tabName);
-            tabbedPane.addTab(tabName, jsPane);
-            tabbedPane.setSelectedIndex(tabCount-1);
-            scrollPaneList.add(jsPane);
-            tabbedPane.repaint();
-        }else if(e.getActionCommand().equalsIgnoreCase("Close Tab")){
-
-            JScrollPaneDocument selectedTab = scrollPaneList.get(tabbedPane.getSelectedIndex());
-
-            if(selectedTab.getTextPane().getWasEdited() && !selectedTab.getIsNewDocument()){
-                String message = "Do you want to save changes?";
-                int answer = JOptionPane.showConfirmDialog(this, message);
-                if (answer == JOptionPane.NO_OPTION) {
-                    scrollPaneList.remove(tabbedPane.getSelectedIndex());
-                    tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
-                }else if (answer == JOptionPane.YES_OPTION) {
-
-                    int selectedIndex = tabbedPane.getSelectedIndex();
-                    JScrollPaneDocument selectedDocument = scrollPaneList.get(selectedIndex);
-
-                    try {
-                        selectedDocument.saveAndCloseFile();
-                        scrollPaneList.remove(selectedIndex);
-                        tabbedPane.removeTabAt(selectedIndex);
-                    } catch (SaveFileException e1) {
-                        JOptionPane.showMessageDialog(this, "Error saving the file");
-                    } catch (FileErrorException e1) {
-                        JOptionPane.showMessageDialog(this, "Error closing the file");
-                    }
-
-                }
-            }
-            else{
-                scrollPaneList.remove(tabbedPane.getSelectedIndex());
-                tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
-            }
-        }else if(e.getActionCommand().equalsIgnoreCase("Save Tab")){
-
-            int selectedIndex = tabbedPane.getSelectedIndex();
-            JScrollPaneDocument selectedDocument = scrollPaneList.get(selectedIndex);
-
-            try {
-                selectedDocument.saveAndCloseFile();
-            } catch (SaveFileException e1) {
-                JOptionPane.showMessageDialog(this, "Error saving the file");
-            } catch (FileErrorException e1) {
-                JOptionPane.showMessageDialog(this, "Error closing the file");
-            }
-        }
     }
 }

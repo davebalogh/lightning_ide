@@ -42,7 +42,7 @@ public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
         jLabel.setForeground(tabColor);
         jLabel.setFont(tabFont);
         jLabel.setBorder(BorderFactory.createEmptyBorder(0, 0,0,0));
-        String pathToImageSortBy = "resources/close-tab-15.png";
+        String pathToImageSortBy = "resources/close-icon-white-8.png";
         ImageIcon SortByIcon = new ImageIcon(getClass().getClassLoader().getResource(pathToImageSortBy));
         JButton closeButton = new JButton(SortByIcon);
         closeButton.setOpaque(false);
