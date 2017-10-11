@@ -20,7 +20,14 @@ public class CustomJTextPane extends JTextPane {
 
             if(tabContainer instanceof JTabbedPane){
                 JTabbedPane tabbedPane = (JTabbedPane)tabContainer;
-                tabbedPane.repaint();
+                Component comp = tabbedPane.getTabComponentAt(tabbedPane.getSelectedIndex());
+                if(comp instanceof JPanel){
+                    JPanel container = (JPanel)comp;
+                    Component labelComponent = container.getComponent(0);
+                    if(labelComponent instanceof JLabel){
+                        ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.ITALIC, 11));
+                    }
+                }
             }
         }
 

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.apple.eawt.Application;
 import com.sun.tools.javac.util.List;
@@ -34,9 +36,37 @@ class LightningIDE extends JFrame implements ActionListener {
         tabbedPane.setUI(new CustomBasicTabbedPaneUI(tabbedPane));
 
         JScrollPaneDocument jsPane = new JScrollPaneDocument();
-
+        jsPane.setName("Tab-1");
         scrollPaneList.add(jsPane);
+
         tabbedPane.addTab("Tab-1", jsPane);
+
+
+        ChangeListener changeListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent changeEvent) {
+                JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
+                int index = sourceTabbedPane.getSelectedIndex();
+                for(int x = 0; x<sourceTabbedPane.getTabCount(); x++){
+
+                    Component comp = sourceTabbedPane.getTabComponentAt(x);
+                    if(comp instanceof JPanel){
+                        JPanel container = (JPanel)comp;
+                        Component labelComponent = container.getComponent(0);
+                        if(labelComponent instanceof JLabel){
+                            if(x != index){
+                                ((JLabel)labelComponent).setForeground(new Color(110,113,127));
+                            }
+                            else{
+                                ((JLabel)labelComponent).setForeground(new Color(215,216,224));
+                            }
+                        }
+                    }
+
+                }
+                System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+            }
+        };
+        tabbedPane.addChangeListener(changeListener);
 
         pane.add(tabbedPane, BorderLayout.CENTER);
 
@@ -78,8 +108,8 @@ class LightningIDE extends JFrame implements ActionListener {
         Application application = Application.getApplication();
         application.setDockIconImage(SortByIcon.getImage());
 
-
         setVisible(true);
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -112,9 +142,11 @@ class LightningIDE extends JFrame implements ActionListener {
             JScrollPaneDocument jsPane = new JScrollPaneDocument();
             int tabCount = tabbedPane.getTabCount() + 1;
             String tabName = "Tab-" + tabCount;
+            jsPane.setName(tabName);
             tabbedPane.addTab(tabName, jsPane);
             tabbedPane.setSelectedIndex(tabCount-1);
             scrollPaneList.add(jsPane);
+            tabbedPane.repaint();
         }else if(e.getActionCommand().equalsIgnoreCase("Close Tab")){
 
             JScrollPaneDocument selectedTab = scrollPaneList.get(tabbedPane.getSelectedIndex());

@@ -16,9 +16,17 @@ public class JScrollPaneDocument extends JScrollPane {
     CustomJTextPane textPane;
     boolean isNewDocument;
     File file;
+    String name;
 
     public boolean getIsNewDocument(){
         return isNewDocument;
+    }
+
+    public void setName(String newName){
+        name = newName;
+    }
+    public String getName(){
+        return name;
     }
 
     public void saveAndCloseFile() throws SaveFileException, FileErrorException {
@@ -71,7 +79,7 @@ public class JScrollPaneDocument extends JScrollPane {
                 resultado.append(s);
                 resultado.append("\r\n");
             }
-
+            name = file.getName();
         } catch (IOException e1) {
             throw new FileErrorException("Error al intentar abrir el archivo");
         } finally {

@@ -1,14 +1,19 @@
 package helpers;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicIconFactory;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
 
 public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
     JTabbedPane parentJTabbedPane;
+    Rectangle xRect;
 
     public CustomBasicTabbedPaneUI(JTabbedPane instanceOfJTabbedPane){
-        super();
+        //super();
         parentJTabbedPane = instanceOfJTabbedPane;
     }
 
@@ -24,31 +29,33 @@ public class CustomBasicTabbedPaneUI extends BasicTabbedPaneUI {
                              FontMetrics metrics, int tabIndex, String title, Rectangle textRect,
                              boolean isSelected) {
 
+        Color tabColor = new Color(215,216,224);
 
-        if (isSelected && tabPlacement == TOP) {
-            g.setColor(new Color(215,216,224));
-        } else {
-            g.setColor(new Color(110,113,127));
-        }
         Font tabFont = new Font("Tahoma", Font.PLAIN, 11);
 
 
-        Component selectedComponent = parentJTabbedPane.getComponent(tabIndex);
-        if(selectedComponent instanceof JScrollPaneDocument){
-            JScrollPaneDocument scrollPaneDocument = (JScrollPaneDocument)selectedComponent;
-            CustomJTextPane jTextPane = scrollPaneDocument.getTextPane();
-            if(jTextPane.getWasEdited()){
-                tabFont = new Font("Tahoma", Font.ITALIC, 11);
-            }
-            else{
-                tabFont = new Font("Tahoma", Font.PLAIN, 11);
-            }
-        }
+        JPanel cont = new JPanel();
 
+        cont.setBackground(new Color(49, 52, 64));
 
+        JLabel jLabel = new JLabel(title);
+        jLabel.setForeground(tabColor);
+        jLabel.setFont(tabFont);
+        jLabel.setBorder(BorderFactory.createEmptyBorder(0, 0,0,0));
+        String pathToImageSortBy = "resources/close-tab-15.png";
+        ImageIcon SortByIcon = new ImageIcon(getClass().getClassLoader().getResource(pathToImageSortBy));
+        JButton closeButton = new JButton(SortByIcon);
+        closeButton.setOpaque(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setBorder(BorderFactory.createEmptyBorder(0, 5,0,0));
+        closeButton.setBorderPainted(false);
 
-        g.setFont(tabFont);
-        g.drawString(title, textRect.x + 3, textRect.y + metrics.getAscent() );
+        cont.add(jLabel);
+        cont.add(closeButton);
+        parentJTabbedPane.setTabComponentAt(tabIndex, cont);
+
+        //g.setFont(tabFont);
+        //g.drawString(title, textRect.x + 3, textRect.y + metrics.getAscent() );
     }
 
     @Override protected void paintFocusIndicator(
