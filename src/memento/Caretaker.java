@@ -29,6 +29,12 @@ public class Caretaker {
         return savedStates.get(index);
     }
 
+    public Memento getLastStageAddedFromMemento() {
+        Memento savedState = savedStates.get(savedStates.size()-1);
+
+        return savedState;
+    }
+
     public Memento getLastStageFromMemento() {
         Memento savedState = new Memento("");
         if((currentStateNumber - 1) >= 0){

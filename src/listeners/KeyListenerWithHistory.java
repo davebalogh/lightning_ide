@@ -21,7 +21,6 @@ public class KeyListenerWithHistory implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -30,6 +29,12 @@ public class KeyListenerWithHistory implements KeyListener {
         textPane.setWasEdited(true);
 
         if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK ) != 0)) {
+
+            if(history.getLastAction() == History.LastAction.ADD){
+                String textToSave = textPane.getText();
+                history.save(textToSave);
+            }
+
             textPane.setText(history.getUndo());
 
             textPane.setCaretPosition(caretPosition+1);
@@ -43,16 +48,14 @@ public class KeyListenerWithHistory implements KeyListener {
                 textPane.setCaretPosition(caretPosition+2);
 
             } catch (MementoNotFoundException e1) {
-                e1.printStackTrace();
+                System.out.println(e1.getMessage());
             }
 
         }else if(e.getKeyChar() != '\uFFFF'){
             int keyLocation = textPane.getCaretPosition();
             caretPosition = keyLocation - 1;
-
-            String allText = textPane.getText();
-            allText = new StringBuilder(allText).insert(keyLocation, e.getKeyChar()).toString() ;
-            history.save(allText);
+            String textToSave = textPane.getText();
+            history.save(textToSave);
         }
     }
 
