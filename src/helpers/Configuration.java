@@ -6,10 +6,13 @@ import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.OpenFileException;
 import exceptions.SaveFileException;
+import listeners.CloseWindowAdapter;
 import sun.misc.resources.Messages_es;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -37,7 +40,9 @@ public class Configuration {
     public static void initializeSettings(JFrame frameToApply){
         frameToApply.setSize(600, 600);
         frameToApply.setLocationRelativeTo(null);
-        frameToApply.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameToApply.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+
 
         Container generalContainer = frameToApply.getContentPane();
         generalContainer.setBackground(new Color(38,40,49));

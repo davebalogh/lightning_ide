@@ -4,6 +4,7 @@ import javax.swing.*;
 import components.JMenuBarCustom;
 import components.JTabbedPaneCustom;
 import helpers.*;
+import listeners.CloseWindowAdapter;
 import listeners.KeyListenerForProgram;
 
 class LightningIDE extends JFrame{
@@ -23,6 +24,8 @@ class LightningIDE extends JFrame{
         Configuration.loadOpenTabs(tabbedPane);
 
         getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
+        this.addWindowListener(new CloseWindowAdapter(tabbedPane));
 
         setJMenuBar(new JMenuBarCustom(tabbedPane));
         setAlwaysOnTop(true);

@@ -12,6 +12,10 @@ public class JPanelForTab extends JPanel {
         jLabel.setText(title);
     }
 
+    public String getTitle(){
+        return jLabel.getText();
+    }
+
     public void setColor(Color newColor){
         jLabel.setForeground(newColor);
     }

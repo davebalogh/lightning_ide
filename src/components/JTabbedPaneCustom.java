@@ -24,7 +24,7 @@ public class JTabbedPaneCustom extends JTabbedPane {
         }
         jScrollPaneCustom.remove(index);
         jPanelForTabList.remove(index);
-        this.removeTabAt(this.getSelectedIndex());
+        this.removeTabAt(index);
     }
 
     public void setCustomTabComponentAt(int index, Component newComponent){
