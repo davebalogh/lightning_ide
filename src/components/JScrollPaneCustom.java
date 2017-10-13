@@ -14,11 +14,24 @@ public class JScrollPaneCustom extends JScrollPane {
     DefaultStyledDocument styledDocument = new StyledDocumentCustom();
     JTextPaneCustom textPane;
     boolean isNewDocument;
+    boolean isLoadedDocument;
     File file;
     String name;
 
     public boolean getIsNewDocument(){
         return isNewDocument;
+    }
+
+    public boolean getIsLoadedDocument(){
+        return isLoadedDocument;
+    }
+
+    public void setIsLoadedDocument(boolean newIsLoadedDocument){
+        isLoadedDocument = newIsLoadedDocument;
+    }
+
+    public void setIsNewDocument(boolean newIsNewDocument){
+        isNewDocument = newIsNewDocument;
     }
 
     public void setName(String newName){
@@ -28,8 +41,11 @@ public class JScrollPaneCustom extends JScrollPane {
         return name;
     }
 
-    public void saveFileToDisk() throws SaveFileException, FileErrorException {
-        if(isNewDocument){
+    public boolean removeFileFromDisk(){
+        return file.delete();
+    }
+    public void saveFileToDisk(boolean showDialog) throws SaveFileException, FileErrorException {
+        if(showDialog){
             JFileChooser fileChooser = new JFileChooser();
             if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 file = fileChooser.getSelectedFile();

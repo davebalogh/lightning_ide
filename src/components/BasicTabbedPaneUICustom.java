@@ -11,9 +11,9 @@ import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
 
 public class BasicTabbedPaneUICustom extends BasicTabbedPaneUI {
-    JTabbedPane parentJTabbedPane;
+    JTabbedPaneCustom parentJTabbedPane;
 
-    public BasicTabbedPaneUICustom(JTabbedPane instanceOfJTabbedPane){
+    public BasicTabbedPaneUICustom(JTabbedPaneCustom instanceOfJTabbedPane){
         //super();
         parentJTabbedPane = instanceOfJTabbedPane;
     }
@@ -30,9 +30,7 @@ public class BasicTabbedPaneUICustom extends BasicTabbedPaneUI {
                              FontMetrics metrics, int tabIndex, String title, Rectangle textRect,
                              boolean isSelected) {
 
-        JPanelForTab newTab = new JPanelForTab(parentJTabbedPane, title);
 
-        parentJTabbedPane.setTabComponentAt(tabIndex, newTab);
     }
 
     @Override protected void paintFocusIndicator(

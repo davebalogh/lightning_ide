@@ -15,19 +15,8 @@ public class FileManager {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            File archivo = new File(file.getAbsolutePath());
 
-            JScrollPaneCustom jsPane = null;
-            try {
-                jsPane = new JScrollPaneCustom(archivo);
-                int tabCount = tabbedPane.getTabCount() + 1;
-                String tabName = file.getName();
-                tabbedPane.addTab(tabName, jsPane);
-                tabbedPane.setSelectedIndex(tabCount-1);
-
-            } catch (FileErrorException e1) {
-                throw new OpenFileException();
-            }
+            tabbedPane.addTabFromFile(file);
         }
     }
 }

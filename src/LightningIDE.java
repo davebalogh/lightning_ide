@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.net.URISyntaxException;
 import javax.swing.*;
 import components.JMenuBarCustom;
 import components.JTabbedPaneCustom;
@@ -6,13 +7,20 @@ import helpers.*;
 import listeners.KeyListenerForProgram;
 
 class LightningIDE extends JFrame{
+    JTabbedPaneCustom tabbedPane;
+
+    public JTabbedPaneCustom getTabbedPane() {
+        return tabbedPane;
+    }
+
     public LightningIDE() {
         super("Lightning IDE");
 
         Configuration.initializeSettings(this);
 
-        JTabbedPaneCustom tabbedPane = new JTabbedPaneCustom();
-        tabbedPane.createNewEmptyTab();
+        tabbedPane = new JTabbedPaneCustom();
+
+        Configuration.loadOpenTabs(tabbedPane);
 
         getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
@@ -23,6 +31,7 @@ class LightningIDE extends JFrame{
         addKeyListener(new KeyListenerForProgram(tabbedPane));
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+
         setVisible(true);
     }
 }

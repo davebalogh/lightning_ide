@@ -69,7 +69,7 @@ public class KeyListenerWithHistory implements KeyListener {
             if(auxContainer instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
                 try {
-                    jScrollPaneDocument.saveFileToDisk();
+                    jScrollPaneDocument.saveFileToDisk(true);
                 } catch (SaveFileException e1) {
                     JOptionPane.showMessageDialog(null, "Error saving the file");
                 } catch (FileErrorException e1) {

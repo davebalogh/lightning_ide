@@ -16,6 +16,10 @@ public class JPanelForTab extends JPanel {
         jLabel.setForeground(newColor);
     }
 
+    public void setTabFont(Font newFont){
+        jLabel.setFont(newFont);
+    }
+
     public JPanelForTab(JTabbedPane parentJTabbedPane, String tabTitle){
         super();
         this.setBackground(new Color(49, 52, 64));

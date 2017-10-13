@@ -17,26 +17,19 @@ public class JTextPaneCustom extends JTextPane {
         if(wasEdited != newWasEdited){
             Container tabContainer = getParent().getParent().getParent().getParent();
 
-            if(tabContainer instanceof JTabbedPane){
-                JTabbedPane tabbedPane = (JTabbedPane)tabContainer;
-                Component componentEdited = tabbedPane.getTabComponentAt(tabbedPane.getSelectedIndex());
-                if(componentEdited instanceof JPanel){
-                    JPanel container = (JPanel)componentEdited;
-                    Component labelComponent = container.getComponent(0);
-                    if(labelComponent instanceof JLabel){
-                        if(newWasEdited){
-                            ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.ITALIC, 11));
-                        }
-                        else{
-                            ((JLabel)labelComponent).setFont(new Font("Tahoma", Font.PLAIN, 11));
-                        }
+            if(tabContainer instanceof JTabbedPaneCustom){
+                JTabbedPaneCustom tabbedPane = (JTabbedPaneCustom)tabContainer;
+                if(tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()) != null){
+                    if(newWasEdited){
+                        tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.ITALIC, 11));
                     }
+                    else{
+                        tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.PLAIN, 11));
+                    }
+                    wasEdited = newWasEdited;
                 }
             }
         }
-
-
-        wasEdited = newWasEdited;
     }
 
 
