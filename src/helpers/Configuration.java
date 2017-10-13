@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Configurations {
+public class Configuration {
     public static void initializeSettings(JFrame frameToApply){
         frameToApply.setSize(600, 600);
         frameToApply.setLocationRelativeTo(null);
