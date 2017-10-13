@@ -3,9 +3,9 @@ package listeners;
 import exceptions.FileErrorException;
 import exceptions.MementoNotFoundException;
 import exceptions.SaveFileException;
-import components.CustomJTextPane;
+import components.JTextPaneCustom;
 import helpers.History;
-import components.JScrollPaneDocument;
+import components.JScrollPaneCustom;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +14,10 @@ import java.awt.event.KeyListener;
 
 public class KeyListenerWithHistory implements KeyListener {
 
-    private CustomJTextPane textPane;
+    private JTextPaneCustom textPane;
     private History history;
     private int caretPosition;
-    public KeyListenerWithHistory(CustomJTextPane newTextPane, History savedHistory){
+    public KeyListenerWithHistory(JTextPaneCustom newTextPane, History savedHistory){
         textPane = newTextPane;
         history = savedHistory;
         caretPosition = 0;
@@ -65,10 +65,10 @@ public class KeyListenerWithHistory implements KeyListener {
 
         }else if ((e.getKeyCode() == KeyEvent.VK_S) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             Container auxContainer = textPane.getParent().getParent().getParent();
-            if(auxContainer instanceof JScrollPaneDocument){
-                JScrollPaneDocument jScrollPaneDocument = (JScrollPaneDocument)auxContainer;
+            if(auxContainer instanceof JScrollPaneCustom){
+                JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
                 try {
-                    jScrollPaneDocument.saveAndCloseFile();
+                    jScrollPaneDocument.saveFileToDisk();
                 } catch (SaveFileException e1) {
                     JOptionPane.showMessageDialog(null, "Error saving the file");
                 } catch (FileErrorException e1) {

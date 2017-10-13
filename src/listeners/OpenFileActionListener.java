@@ -2,7 +2,7 @@ package listeners;
 
 import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
-import components.JScrollPaneDocument;
+import components.JScrollPaneCustom;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,20 +25,17 @@ public class OpenFileActionListener implements ActionListener {
             File file = fileChooser.getSelectedFile();
             File archivo = new File(file.getAbsolutePath());
 
-            JScrollPaneDocument jsPane = null;
+            JScrollPaneCustom jsPane = null;
             try {
-                jsPane = new JScrollPaneDocument(archivo);
+                jsPane = new JScrollPaneCustom(archivo);
                 int tabCount = tabbedPane.getTabCount() + 1;
                 String tabName = file.getName();
                 tabbedPane.addTab(tabName, jsPane);
                 tabbedPane.setSelectedIndex(tabCount-1);
 
-                //scrollPaneList.add(jsPane);
             } catch (FileErrorException e1) {
                 e1.printStackTrace();
             }
-
-
         } else {
             System.out.println("Open command cancelled by user.");
         }

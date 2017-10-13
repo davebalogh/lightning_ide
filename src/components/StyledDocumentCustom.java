@@ -9,12 +9,12 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.*;
 import java.awt.*;
 
-public class CustomStyledDocument extends DefaultStyledDocument {
+public class StyledDocumentCustom extends DefaultStyledDocument {
 
     final AttributeSet attrWhite = StyleContext.getDefaultStyleContext().addAttribute(StyleContext.getDefaultStyleContext().getEmptySet(), StyleConstants.Foreground, Color.white);
     private Subject subject = new Subject();
 
-    public CustomStyledDocument(){
+    public StyledDocumentCustom(){
         for(Observable observer: WordManager.getObservableList(this)){
             subject.register(observer);
         }

@@ -2,13 +2,11 @@ package components;
 
 import helpers.History;
 import listeners.KeyListenerWithHistory;
-import listeners.DocumentListenerWithHistory;
-
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
 
-public class CustomJTextPane extends JTextPane {
+public class JTextPaneCustom extends JTextPane {
     private boolean wasEdited = false;
     private History history;
 
@@ -21,9 +19,9 @@ public class CustomJTextPane extends JTextPane {
 
             if(tabContainer instanceof JTabbedPane){
                 JTabbedPane tabbedPane = (JTabbedPane)tabContainer;
-                Component comp = tabbedPane.getTabComponentAt(tabbedPane.getSelectedIndex());
-                if(comp instanceof JPanel){
-                    JPanel container = (JPanel)comp;
+                Component componentEdited = tabbedPane.getTabComponentAt(tabbedPane.getSelectedIndex());
+                if(componentEdited instanceof JPanel){
+                    JPanel container = (JPanel)componentEdited;
                     Component labelComponent = container.getComponent(0);
                     if(labelComponent instanceof JLabel){
                         if(newWasEdited){
@@ -42,7 +40,7 @@ public class CustomJTextPane extends JTextPane {
     }
 
 
-    public CustomJTextPane(DefaultStyledDocument doc, String originalState){
+    public JTextPaneCustom(DefaultStyledDocument doc, String originalState){
         super(doc);
         initialize(originalState);
     }

@@ -2,6 +2,7 @@ package components;
 
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
+import helpers.Messages;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalScrollBarUI;
@@ -9,9 +10,9 @@ import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
 import java.io.*;
 
-public class JScrollPaneDocument extends JScrollPane {
-    DefaultStyledDocument styledDocument = new CustomStyledDocument();
-    CustomJTextPane textPane;
+public class JScrollPaneCustom extends JScrollPane {
+    DefaultStyledDocument styledDocument = new StyledDocumentCustom();
+    JTextPaneCustom textPane;
     boolean isNewDocument;
     File file;
     String name;
@@ -27,44 +28,73 @@ public class JScrollPaneDocument extends JScrollPane {
         return name;
     }
 
-    public void saveAndCloseFile() throws SaveFileException, FileErrorException {
-        if(!isNewDocument){
-            BufferedWriter writer = null;
-            try {
-                writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
-                writer.write( textPane.getText());
-                getTextPane().setWasEdited(false);
+    public void saveFileToDisk() throws SaveFileException, FileErrorException {
+        if(isNewDocument){
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                file = fileChooser.getSelectedFile();
             }
-            catch ( IOException e) {
-                throw new SaveFileException();
-            }
-            finally {
-                try {
-                    if ( writer != null) {
-                        writer.close();
-                    }
-                }
-                catch ( IOException e) {
-                    throw new FileErrorException();
-                }
+            else{
+                return;
             }
         }
+
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
+            writer.write( textPane.getText());
+            getTextPane().setWasEdited(false);
+
+            isNewDocument = false;
+            Container parentJTabbedPaneCustom = this.getParent();
+            if(parentJTabbedPaneCustom instanceof JTabbedPaneCustom){
+                JTabbedPaneCustom tabbedPaneCustom = (JTabbedPaneCustom)parentJTabbedPaneCustom;
+                Component selectedTab = tabbedPaneCustom.getTabComponentAt(tabbedPaneCustom.getSelectedIndex());
+                if(selectedTab instanceof JPanelForTab){
+                    JPanelForTab tabPanel = (JPanelForTab)selectedTab;
+                    tabPanel.setTitle(file.getName());
+                }
+                else{
+                    Messages.showError("Something went wrong. Try again later.");
+                    return;
+                }
+            }
+            else{
+                Messages.showError("Something went wrong. Try again later.");
+                return;
+            }
+
+        }
+        catch ( IOException e) {
+            throw new SaveFileException();
+        }
+        finally {
+            try {
+                if ( writer != null) {
+                    writer.close();
+                }
+            }
+            catch ( IOException e) {
+                throw new FileErrorException();
+            }
+        }
+
     }
 
     public File getFile(){
         return file;
     }
 
-    public CustomJTextPane getTextPane(){
+    public JTextPaneCustom getTextPane(){
         return textPane;
     }
 
-    public JScrollPaneDocument(){
+    public JScrollPaneCustom(){
         this("");
         isNewDocument = true;
     }
 
-    public JScrollPaneDocument(File existingFile) throws FileErrorException {
+    public JScrollPaneCustom(File existingFile) throws FileErrorException {
         file = existingFile;
         StringBuffer resultado = new StringBuffer();
         FileReader fr = null;
@@ -93,13 +123,13 @@ public class JScrollPaneDocument extends JScrollPane {
         isNewDocument = false;
     }
 
-    public JScrollPaneDocument(String originalState){
+    public JScrollPaneCustom(String originalState){
         super();
         initialize(originalState);
     }
 
     private void initialize(String originalState){
-        textPane = new CustomJTextPane(styledDocument, originalState);
+        textPane = new JTextPaneCustom(styledDocument, originalState);
         JPanel noWrapPanel = new JPanel( new BorderLayout() );
         noWrapPanel.add( textPane );
 

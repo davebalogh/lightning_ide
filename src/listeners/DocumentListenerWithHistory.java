@@ -1,16 +1,16 @@
 package listeners;
 
-import components.CustomJTextPane;
+import components.JTextPaneCustom;
 import helpers.History;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class DocumentListenerWithHistory implements DocumentListener {
-    private CustomJTextPane textPane;
+    private JTextPaneCustom textPane;
     private History history;
 
-    public DocumentListenerWithHistory(CustomJTextPane newTextPane, History savedHistory){
+    public DocumentListenerWithHistory(JTextPaneCustom newTextPane, History savedHistory){
         textPane = newTextPane;
         history = savedHistory;
     }

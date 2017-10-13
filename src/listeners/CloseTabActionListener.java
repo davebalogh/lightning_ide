@@ -3,7 +3,8 @@ package listeners;
 import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
-import components.JScrollPaneDocument;
+import components.JScrollPaneCustom;
+import helpers.Messages;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +21,8 @@ public class CloseTabActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Component selectedComponent = tabbedPane.getSelectedComponent();
-        if (selectedComponent instanceof JScrollPaneDocument) {
-            JScrollPaneDocument selectedTab = (JScrollPaneDocument) selectedComponent;
+        if (selectedComponent instanceof JScrollPaneCustom) {
+            JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent;
 
             if (selectedTab.getTextPane().getWasEdited() && !selectedTab.getIsNewDocument()) {
                 String message = "Do you want to save changes?";
@@ -30,12 +31,12 @@ public class CloseTabActionListener implements ActionListener {
                     tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
                 } else if (answer == JOptionPane.YES_OPTION) {
                     try {
-                        selectedTab.saveAndCloseFile();
+                        selectedTab.saveFileToDisk();
                         tabbedPane.removeTabAt(tabbedPane.getSelectedIndex());
                     } catch (SaveFileException e1) {
-                        JOptionPane.showMessageDialog(null, "Error saving the file");
+                        Messages.showError("Error saving the file");
                     } catch (FileErrorException e1) {
-                        JOptionPane.showMessageDialog(null, "Error closing the file");
+                        Messages.showError("Error closing the file");
                     }
                 }
             } else {

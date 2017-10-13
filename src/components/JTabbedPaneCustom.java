@@ -9,18 +9,17 @@ public class JTabbedPaneCustom extends JTabbedPane {
     public JTabbedPaneCustom(){
         super();
         this.setBackground( new Color(49, 52, 64));
-        this.setUI(new CustomBasicTabbedPaneUI(this));
+        this.setUI(new BasicTabbedPaneUICustom(this));
         this.addChangeListener(new ChangeListenerForTabbedPane());
     }
 
     public void createNewEmptyTab(){
-        JScrollPaneDocument jsPane = new JScrollPaneDocument();
+        JScrollPaneCustom jsPane = new JScrollPaneCustom();
         int tabCount = this.getTabCount() + 1;
         String tabName = "Tab-" + tabCount;
         jsPane.setName(tabName);
         this.addTab(tabName, jsPane);
         this.setSelectedIndex(tabCount-1);
-        //scrollPaneList.add(jsPane);
         this.repaint();
     }
 }
