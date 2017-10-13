@@ -65,8 +65,23 @@ public class JTabbedPaneCustom extends JTabbedPane {
     }
 
     public void createNewEmptyTab(){
-        int tabCount = this.getTabCount() + 1;
-        String tabName = "Tab-" + tabCount;
+        int generalLastNumber = 1;
+
+        for(int tabIndex = 0; tabIndex < this.getTabCount(); tabIndex++){
+            String tabIndexName = this.getTitleAt(tabIndex);
+
+            int positionOfPoint = tabIndexName.lastIndexOf("-");
+            if (positionOfPoint > 0) {
+                String lastNumberAdded = tabIndexName.substring(positionOfPoint+1);
+                int lastNumber = Integer.parseInt(lastNumberAdded);
+                if(generalLastNumber < lastNumber){
+                    generalLastNumber = lastNumber;
+                }
+            }
+        }
+        generalLastNumber = generalLastNumber + 1;
+        String tabName = "Tab-" + generalLastNumber;
+
         try {
             File openFilesDirectory = new File(Configuration.getOpenFileDirectory());
             for (final File fileEntry : openFilesDirectory.listFiles()) {
@@ -78,7 +93,8 @@ public class JTabbedPaneCustom extends JTabbedPane {
                     }
 
                     if(nameOfFile == tabName){
-                        tabCount++;
+                        generalLastNumber++;
+                        tabName = "Tab-" + generalLastNumber;
                     }
                 }
             }
