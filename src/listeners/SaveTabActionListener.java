@@ -25,7 +25,7 @@ public class SaveTabActionListener implements ActionListener {
             JScrollPaneCustom selectedDocument = (JScrollPaneCustom) selectedComponent;
 
             try {
-                selectedDocument.saveFileToDisk(true);
+                selectedDocument.saveFileToDisk(selectedDocument.getIsNewDocument());
             } catch (SaveFileException e1) {
                 JOptionPane.showMessageDialog(null, "Error saving the file");
             } catch (FileErrorException e1) {

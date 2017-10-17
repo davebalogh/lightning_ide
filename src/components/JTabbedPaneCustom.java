@@ -65,7 +65,7 @@ public class JTabbedPaneCustom extends JTabbedPane {
     }
 
     public void createNewEmptyTab(){
-        int generalLastNumber = 1;
+        int generalLastNumber = 0;
 
         for(int tabIndex = 0; tabIndex < this.getTabCount(); tabIndex++){
             String tabIndexName = this.getTitleAt(tabIndex);
