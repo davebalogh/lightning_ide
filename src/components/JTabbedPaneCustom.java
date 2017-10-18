@@ -1,9 +1,12 @@
 package components;
 
 import exceptions.FileErrorException;
+import exceptions.NotOpenDocumentException;
 import exceptions.OpenFileException;
 import helpers.Configuration;
+import helpers.DocumentManager;
 import helpers.Messages;
+import interfaces.Documentable;
 import listeners.ChangeListenerForTabbedPane;
 
 import javax.swing.*;
@@ -16,16 +19,23 @@ import java.util.ArrayList;
 public class JTabbedPaneCustom extends JTabbedPane {
     JScrollPaneCustom lastJSCrollPaneAdded;
     ArrayList<JPanelForTab> jPanelForTabList;
+
+    public DocumentManager getDocumentManager() {
+        return documentManager;
+    }
+
+    public void setDocumentManager(DocumentManager documentManager) {
+        this.documentManager = documentManager;
+    }
+
+    DocumentManager documentManager;
+
+    public ArrayList<JScrollPaneCustom> getjScrollPaneCustom() {
+        return jScrollPaneCustom;
+    }
+
     ArrayList<JScrollPaneCustom> jScrollPaneCustom;
 
-    public void removeCustomTabAt(int index, boolean removeFileFromDisk){
-        if(removeFileFromDisk){
-            jScrollPaneCustom.get(index).removeFileFromDisk();
-        }
-        jScrollPaneCustom.remove(index);
-        jPanelForTabList.remove(index);
-        this.removeTabAt(index);
-    }
 
     public void setCustomTabComponentAt(int index, Component newComponent){
         if(newComponent instanceof JPanelForTab){
@@ -64,72 +74,22 @@ public class JTabbedPaneCustom extends JTabbedPane {
         jScrollPaneCustom = new ArrayList<>();
     }
 
-    public void createNewEmptyTab(){
-        int generalLastNumber = 0;
 
-        for(int tabIndex = 0; tabIndex < this.getTabCount(); tabIndex++){
-            String tabIndexName = this.getTitleAt(tabIndex);
+    public JTabAndPane addTabFromFile(Documentable openFile) throws NotOpenDocumentException{
+        lastJSCrollPaneAdded = new JScrollPaneCustom(openFile);
+        lastJSCrollPaneAdded.setDocumentManager(documentManager);
+        lastJSCrollPaneAdded.initialize(openFile.getText());
 
-            int positionOfPoint = tabIndexName.lastIndexOf("-");
-            if (positionOfPoint > 0) {
-                String lastNumberAdded = tabIndexName.substring(positionOfPoint+1);
-                int lastNumber = Integer.parseInt(lastNumberAdded);
-                if(generalLastNumber < lastNumber){
-                    generalLastNumber = lastNumber;
-                }
-            }
-        }
-        generalLastNumber = generalLastNumber + 1;
-        String tabName = "Tab-" + generalLastNumber;
+        jScrollPaneCustom.add(lastJSCrollPaneAdded);
+        int tabCount = this.getTabCount() + 1;
+        String tabName = openFile.getName();
+        this.addTab(tabName, lastJSCrollPaneAdded);
+        int selectedIndex = tabCount-1;
+        this.setSelectedIndex(selectedIndex);
 
-        try {
-            File openFilesDirectory = new File(Configuration.getOpenFileDirectory());
-            for (final File fileEntry : openFilesDirectory.listFiles()) {
-                if (!fileEntry.isDirectory()) {
-                    String nameOfFile = fileEntry.getName();
-                    int positionOfPoint = nameOfFile.lastIndexOf(".");
-                    if (positionOfPoint > 0) {
-                        nameOfFile = nameOfFile.substring(0, positionOfPoint);
-                    }
+        JPanelForTab newTab = new JPanelForTab(this, tabName);
+        this.setCustomTabComponentAt(selectedIndex, newTab);
 
-                    if(nameOfFile == tabName){
-                        generalLastNumber++;
-                        tabName = "Tab-" + generalLastNumber;
-                    }
-                }
-            }
-
-            File createNewFileForTab = new File(Configuration.getOpenFileDirectory() + "/" + tabName);
-            createNewFileForTab.createNewFile();
-            addTabFromFile(createNewFileForTab);
-            jScrollPaneCustom.get(jScrollPaneCustom.size()-1).setIsNewDocument(true);
-
-        } catch (URISyntaxException e) {
-            Messages.showError("Error creating new tab");
-        } catch (OpenFileException e) {
-            Messages.showError("Error opening previous tab");
-        } catch (IOException e) {
-            Messages.showError("Error creating file for new tab");
-        }
-
-
-    }
-
-    public void addTabFromFile(File openFile) throws OpenFileException{
-        try {
-            lastJSCrollPaneAdded = new JScrollPaneCustom(openFile);
-            jScrollPaneCustom.add(lastJSCrollPaneAdded);
-            int tabCount = this.getTabCount() + 1;
-            String tabName = openFile.getName();
-            this.addTab(tabName, lastJSCrollPaneAdded);
-            int selectedIndex = tabCount-1;
-            this.setSelectedIndex(selectedIndex);
-
-            JPanelForTab newTab = new JPanelForTab(this, tabName);
-            this.setCustomTabComponentAt(selectedIndex, newTab);
-
-        } catch (FileErrorException e1) {
-            throw new OpenFileException();
-        }
+        return new JTabAndPane(lastJSCrollPaneAdded, newTab);
     }
 }

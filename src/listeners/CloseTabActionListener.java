@@ -2,10 +2,11 @@ package listeners;
 
 import components.JPanelForTab;
 import components.JTabbedPaneCustom;
-import exceptions.FileErrorException;
-import exceptions.SaveFileException;
+import exceptions.*;
 import components.JScrollPaneCustom;
+import helpers.DocumentManager;
 import helpers.Messages;
+import interfaces.Documentable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
@@ -15,9 +16,11 @@ import java.awt.event.ActionListener;
 
 public class CloseTabActionListener implements ActionListener {
     private JTabbedPaneCustom tabbedPane;
+    private DocumentManager documentManager;
 
     public CloseTabActionListener(JTabbedPaneCustom instanceOfTabbedPane) {
         tabbedPane = instanceOfTabbedPane;
+        documentManager = tabbedPane.getDocumentManager();
     }
 
     @Override
@@ -44,37 +47,29 @@ public class CloseTabActionListener implements ActionListener {
         if (selectedComponent != null && selectedComponent instanceof JScrollPaneCustom) {
             JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent;
 
-            if (selectedTab.getTextPane().getWasEdited()) {
-                String message = "Do you want to save changes?";
-                int answer = JOptionPane.showConfirmDialog(null, message);
-                if (answer == JOptionPane.NO_OPTION) {
-                    if(tabbedPane.getjScrollPaneCustom(selectedIndex) != null){
-                        if(selectedTab.getIsNewDocument()){
-                            tabbedPane.removeCustomTabAt(selectedIndex, true);
-                        }
-                        else {
-                            tabbedPane.removeCustomTabAt(selectedIndex, false);
-                        }
-                    }
+            try {
+                if (selectedTab.getFile().getIsEdited()) {
+                    boolean response = documentManager.getDocumentHashMap().get(selectedTab.getFile().getUniqueName()).closeModifiedDocument();
 
-
-                } else if (answer == JOptionPane.YES_OPTION) {
-                    try {
-                        selectedTab.saveFileToDisk(true);
+                    if (response) {
+                        documentManager.deleteDocument(selectedTab.getFile());
                         tabbedPane.removeTabAt(selectedIndex);
-                    } catch (SaveFileException e1) {
-                        Messages.showError("Error saving the file");
-                    } catch (FileErrorException e1) {
-                        Messages.showError("Error closing the file");
+                    }
+                } else {
+                    if(selectedTab.getFile().getIsNewDocument()){
+                        documentManager.getDocumentHashMap().remove(selectedTab.getFile().getUniqueName());
+                        tabbedPane.removeTabAt(selectedIndex);
+                    }
+                    else {
+                        tabbedPane.removeTabAt(selectedIndex);
                     }
                 }
-            } else {
-                if(selectedTab.getIsNewDocument()){
-                    tabbedPane.removeCustomTabAt(selectedIndex, true);
-                }
-                else {
-                    tabbedPane.removeCustomTabAt(selectedIndex, false);
-                }
+            } catch (NotOpenDocumentException e1) {
+                e1.printStackTrace();
+            } catch (CloseDocumentException e1) {
+                e1.printStackTrace();
+            } catch (SaveDocumentException e1) {
+                e1.printStackTrace();
             }
         }
     }

@@ -61,42 +61,4 @@ public class Configuration {
         application.setDockIconImage(SortByIcon.getImage());
     }
 
-
-
-    public static void loadOpenTabs(JTabbedPaneCustom parentTabbedPane){
-        try {
-
-            Path openFilesPath = Configuration.getOpenFilesFolderPath();
-            File openFilesDirectory = new File(Configuration.getOpenFileDirectory());
-
-            if (Files.notExists(openFilesPath)) {
-                try {
-                    openFilesDirectory.mkdir();
-                }catch(SecurityException se){
-                    Messages.showError("Error creating open files directory. Try again later.");
-                    return;
-                }
-            }
-
-            if(openFilesDirectory.listFiles().length != 0){
-                for (final File fileEntry : openFilesDirectory.listFiles()) {
-                    if (!fileEntry.isDirectory()) {
-                        try {
-                            parentTabbedPane.addTabFromFile(fileEntry);
-                            parentTabbedPane.getLastJSCrollPaneAdded().setIsLoadedDocument(true);
-                            parentTabbedPane.getLastJSCrollPaneAdded().setIsNewDocument(true);
-                            parentTabbedPane.getLastJSCrollPaneAdded().getTextPane().setWasEdited(true);
-                        } catch (OpenFileException e) {
-                            Messages.showError("Error loading open file named: " + fileEntry.getName());
-                        }
-                    }
-                }
-            }else{
-                parentTabbedPane.createNewEmptyTab();
-            }
-
-        } catch (URISyntaxException e) {
-            Messages.showError("Error loading open files. Try again later.");
-        }
-    }
 }

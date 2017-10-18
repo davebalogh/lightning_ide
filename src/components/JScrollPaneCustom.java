@@ -1,8 +1,11 @@
 package components;
 
 import exceptions.FileErrorException;
+import exceptions.NotOpenDocumentException;
 import exceptions.SaveFileException;
+import helpers.DocumentManager;
 import helpers.Messages;
+import interfaces.Documentable;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalScrollBarUI;
@@ -15,8 +18,19 @@ public class JScrollPaneCustom extends JScrollPane {
     JTextPaneCustom textPane;
     boolean isNewDocument;
     boolean isLoadedDocument;
-    File file;
+    Documentable file;
     String name;
+    JTabAndPane parentJTabAndPane;
+
+    public DocumentManager getDocumentManager() {
+        return documentManager;
+    }
+
+    public void setDocumentManager(DocumentManager documentManager) {
+        this.documentManager = documentManager;
+    }
+
+    DocumentManager documentManager;
 
     public boolean getIsNewDocument(){
         return isNewDocument;
@@ -41,63 +55,7 @@ public class JScrollPaneCustom extends JScrollPane {
         return name;
     }
 
-    public boolean removeFileFromDisk(){
-        return file.delete();
-    }
-    public void saveFileToDisk(boolean showDialog) throws SaveFileException, FileErrorException {
-        if(showDialog){
-            JFileChooser fileChooser = new JFileChooser();
-            if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                file = fileChooser.getSelectedFile();
-            }
-            else{
-                return;
-            }
-        }
-
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
-            writer.write( textPane.getText());
-            getTextPane().setWasEdited(false);
-
-            isNewDocument = false;
-            Container parentJTabbedPaneCustom = this.getParent();
-            if(parentJTabbedPaneCustom instanceof JTabbedPaneCustom){
-                JTabbedPaneCustom tabbedPaneCustom = (JTabbedPaneCustom)parentJTabbedPaneCustom;
-                Component selectedTab = tabbedPaneCustom.getTabComponentAt(tabbedPaneCustom.getSelectedIndex());
-                if(selectedTab instanceof JPanelForTab){
-                    JPanelForTab tabPanel = (JPanelForTab)selectedTab;
-                    tabPanel.setTitle(file.getName());
-                }
-                else{
-                    Messages.showError("Something went wrong. Try again later.");
-                    return;
-                }
-            }
-            else{
-                Messages.showError("Something went wrong. Try again later.");
-                return;
-            }
-
-        }
-        catch ( IOException e) {
-            throw new SaveFileException();
-        }
-        finally {
-            try {
-                if ( writer != null) {
-                    writer.close();
-                }
-            }
-            catch ( IOException e) {
-                throw new FileErrorException();
-            }
-        }
-
-    }
-
-    public File getFile(){
+    public Documentable getFile(){
         return file;
     }
 
@@ -110,32 +68,9 @@ public class JScrollPaneCustom extends JScrollPane {
         isNewDocument = true;
     }
 
-    public JScrollPaneCustom(File existingFile) throws FileErrorException {
+    public JScrollPaneCustom(Documentable existingFile) throws NotOpenDocumentException{
         file = existingFile;
-        StringBuffer resultado = new StringBuffer();
-        FileReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            String s = null;
-            while ((s = br.readLine()) != null) {
-                resultado.append(s);
-                resultado.append("\r\n");
-            }
-            name = file.getName();
-        } catch (IOException e1) {
-            throw new FileErrorException("Error al intentar abrir el archivo");
-        } finally {
-            try {
-                fr.close();
-                br.close();
-
-            } catch (IOException e2) {
-                throw new FileErrorException("Error al intentar cerrar el archivo");
-            }
-        }
-        initialize(String.valueOf(resultado));
+        name = existingFile.getName();
         isNewDocument = false;
     }
 
@@ -144,8 +79,8 @@ public class JScrollPaneCustom extends JScrollPane {
         initialize(originalState);
     }
 
-    private void initialize(String originalState){
-        textPane = new JTextPaneCustom(styledDocument, originalState);
+    public void initialize(String originalState){
+        textPane = new JTextPaneCustom(styledDocument, originalState, documentManager);
         JPanel noWrapPanel = new JPanel( new BorderLayout() );
         noWrapPanel.add( textPane );
 

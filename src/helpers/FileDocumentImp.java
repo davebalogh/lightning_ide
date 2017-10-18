@@ -1,19 +1,22 @@
 package helpers;
 
 import exceptions.*;
-import interfaces.Documentable;
+import interfaces.*;
 
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileDocumentImp implements Documentable {
+
+    private String text;
+    private File file;
+    private String name;
+    private boolean isEdited = false;
+    public boolean isNewDocument = false;
 
     public static String getOpenFilesFolderName(){
         return "open_files";
@@ -28,6 +31,57 @@ public class FileDocumentImp implements Documentable {
         String programPath = Configuration.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
         String openFilesPathString = programPath + "/" + Configuration.getOpenFilesFolderName();
         return openFilesPathString;
+    }
+
+    @Override
+    public boolean getIsEdited() throws NotOpenDocumentException {
+        if(file != null){
+            return isEdited;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public boolean getIsNewDocument() throws NotOpenDocumentException {
+        if(file != null){
+            return isNewDocument;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public File getFile() throws NotOpenDocumentException {
+        if(file != null){
+            return file;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public String getText() throws NotOpenDocumentException {
+        if(file != null){
+            return text;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public void setText(String textModified) throws NotOpenDocumentException {
+        if(file != null){
+            text = textModified;
+            isEdited = true;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
     }
 
     @Override
@@ -55,14 +109,49 @@ public class FileDocumentImp implements Documentable {
 
             newDocument = new File(Configuration.getOpenFileDirectory() + "/" + tabName);
             newDocument.createNewFile();
+            name = tabName;
 
         } catch (URISyntaxException e) {
             throw new NewDocumentException();
         } catch (IOException e) {
             throw new NewDocumentException();
         }
-
+        file = newDocument;
         return newDocument;
+    }
+    @Override
+    public File openDocument(File document) throws OpenDocumentException {
+        file = document;
+
+        StringBuffer resultado = new StringBuffer();
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String s = null;
+            while ((s = br.readLine()) != null) {
+                resultado.append(s);
+                resultado.append("\r\n");
+            }
+            name = file.getName();
+        } catch (IOException e1) {
+            throw new OpenDocumentException();
+        } finally {
+            try {
+                fr.close();
+                br.close();
+
+            } catch (IOException e2) {
+                throw new OpenDocumentException();
+            }
+        }
+
+        text = String.valueOf(resultado);
+
+        isEdited = false;
+
+        return file;
     }
 
     @Override
@@ -71,9 +160,9 @@ public class FileDocumentImp implements Documentable {
         int returnVal = fileChooser.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
+            File fileToOpen = fileChooser.getSelectedFile();
 
-            return file;
+            return openDocument(fileToOpen);
         }
 
         return null;
@@ -99,7 +188,19 @@ public class FileDocumentImp implements Documentable {
                 throw new SaveDocumentException();
             }
 
+            isEdited = false;
+            file = documentToSave;
             return true;
+        }
+    }
+
+    @Override
+    public boolean saveDocument() throws SaveDocumentException, NotOpenDocumentException {
+        if(file != null){
+            return saveDocument(this.file, this.getText());
+        }
+        else{
+            throw new NotOpenDocumentException();
         }
     }
 
@@ -110,15 +211,37 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public boolean closeDocument(File documentForClose, String newTextModified) throws CloseDocumentException, SaveDocumentException {
+    public boolean deleteDocument() throws DeleteDocumentException, NotOpenDocumentException {
+        if(file != null){
+            return deleteDocument(this.file);
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public boolean closeModifiedDocument(File documentForClose, String newTextModified) throws CloseDocumentException, SaveDocumentException {
         String message = "Do you want to save changes?";
         int answer = JOptionPane.showConfirmDialog(null, message);
         if (answer == JOptionPane.YES_OPTION) {
             saveDocument(documentForClose, newTextModified);
             return true;
         }
-        else {
+        else if (answer == JOptionPane.CANCEL_OPTION) {
             return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public boolean closeModifiedDocument() throws CloseDocumentException, SaveDocumentException, NotOpenDocumentException {
+        if(file != null){
+            return closeModifiedDocument(this.file, this.getText());
+        }
+        else{
+            throw new NotOpenDocumentException();
         }
     }
 
@@ -140,5 +263,30 @@ public class FileDocumentImp implements Documentable {
         }
 
         return documentList;
+    }
+
+    @Override
+    public Documentable getNewInstance() {
+        return new FileDocumentImp();
+    }
+
+    @Override
+    public String getName() throws NotOpenDocumentException {
+        if(file != null){
+            return name;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public String getUniqueName() throws NotOpenDocumentException {
+        if(file != null){
+            return this.file.getAbsolutePath();
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
     }
 }

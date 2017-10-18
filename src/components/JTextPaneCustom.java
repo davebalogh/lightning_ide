@@ -1,5 +1,6 @@
 package components;
 
+import helpers.DocumentManager;
 import helpers.History;
 import listeners.KeyListenerWithHistory;
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 public class JTextPaneCustom extends JTextPane {
     private boolean wasEdited = false;
     private History history;
+    DocumentManager documentManager;
 
     public boolean getWasEdited(){
         return wasEdited;
@@ -33,8 +35,9 @@ public class JTextPaneCustom extends JTextPane {
     }
 
 
-    public JTextPaneCustom(DefaultStyledDocument doc, String originalState){
+    public JTextPaneCustom(DefaultStyledDocument doc, String originalState, DocumentManager documentManager){
         super(doc);
+        this.documentManager = documentManager;
         initialize(originalState);
     }
 
@@ -51,6 +54,6 @@ public class JTextPaneCustom extends JTextPane {
         this.repaint();
         this.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
-        this.addKeyListener(new KeyListenerWithHistory(this, history));
+        this.addKeyListener(new KeyListenerWithHistory(this, history, documentManager));
     }
 }

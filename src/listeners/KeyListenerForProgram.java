@@ -1,22 +1,15 @@
 package listeners;
 
-import components.JTabbedPaneCustom;
-import components.JTextPaneCustom;
-import exceptions.OpenFileException;
-import helpers.FileManager;
-import helpers.Messages;
+import helpers.DocumentManager;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyListenerForProgram  implements KeyListener {
+    private DocumentManager documentManager;
 
-    private JTabbedPaneCustom jTabbedPaneCustom;
-
-    public KeyListenerForProgram(JTabbedPaneCustom newTextPane){
-        jTabbedPaneCustom = newTextPane;
+    public KeyListenerForProgram(DocumentManager instanceOfDocumentManager){
+        documentManager = instanceOfDocumentManager;
     }
 
     @Override
@@ -27,13 +20,9 @@ public class KeyListenerForProgram  implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_O) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
-            try {
-                FileManager.openFileAndAddToJTabbedPane(jTabbedPaneCustom);
-            } catch (OpenFileException e1) {
-                Messages.showError("Error opening file. Try again later.");
-            }
+            documentManager.openDocumentAndAddToJTabbedPane();
         }else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
-            jTabbedPaneCustom.createNewEmptyTab();
+            documentManager.createEmptyDocumentAndNewTab();
         }
     }
 

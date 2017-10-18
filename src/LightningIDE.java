@@ -21,17 +21,18 @@ class LightningIDE extends JFrame{
 
         tabbedPane = new JTabbedPaneCustom();
 
-        Configuration.loadOpenTabs(tabbedPane);
+        DocumentManager documentManager = new DocumentManager(tabbedPane, new FileDocumentImp());
+        documentManager.loadOpenTabs();
 
         getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-        this.addWindowListener(new CloseWindowAdapter(tabbedPane));
+        this.addWindowListener(new CloseWindowAdapter(tabbedPane, documentManager));
 
-        setJMenuBar(new JMenuBarCustom(tabbedPane));
+        setJMenuBar(new JMenuBarCustom(tabbedPane, documentManager));
         setAlwaysOnTop(true);
         setAlwaysOnTop(false);
 
-        addKeyListener(new KeyListenerForProgram(tabbedPane));
+        addKeyListener(new KeyListenerForProgram(documentManager));
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
 

@@ -1,5 +1,6 @@
 package components;
 
+import helpers.DocumentManager;
 import listeners.CloseTabActionListener;
 import listeners.NewTabActionListener;
 import listeners.OpenFileActionListener;
@@ -9,9 +10,11 @@ import javax.swing.*;
 
 public class JMenuBarCustom extends JMenuBar {
     private JTabbedPaneCustom tabbedPane;
-    public JMenuBarCustom(JTabbedPaneCustom instanceOfTabbedPane) {
-        super();
+    private DocumentManager documentManager;
 
+    public JMenuBarCustom(JTabbedPaneCustom instanceOfTabbedPane, DocumentManager instanceOfDocumentManager) {
+        super();
+        documentManager = instanceOfDocumentManager;
         tabbedPane = instanceOfTabbedPane;
 
         JMenu fileMenu = new JMenu("File");
@@ -29,7 +32,7 @@ public class JMenuBarCustom extends JMenuBar {
         fileMenu.add(closeTabItem);
 
         JMenuItem saveTabItem = new JMenuItem("Save Tab");
-        saveTabItem.addActionListener(new SaveTabActionListener(tabbedPane));
+        saveTabItem.addActionListener(new SaveTabActionListener(tabbedPane, documentManager));
         fileMenu.add(saveTabItem);
 
         this.add(fileMenu);

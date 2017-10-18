@@ -4,6 +4,7 @@ import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.SaveFileException;
 import components.JScrollPaneCustom;
+import helpers.DocumentManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +13,11 @@ import java.awt.event.ActionListener;
 
 public class SaveTabActionListener implements ActionListener {
     private JTabbedPaneCustom tabbedPane;
+    private DocumentManager documentManager;
 
-    public SaveTabActionListener(JTabbedPaneCustom instanceOfTabbedPane) {
+    public SaveTabActionListener(JTabbedPaneCustom instanceOfTabbedPane, DocumentManager instanceOfDocumentManager) {
         tabbedPane = instanceOfTabbedPane;
+        documentManager = instanceOfDocumentManager;
     }
 
     @Override
@@ -23,15 +26,7 @@ public class SaveTabActionListener implements ActionListener {
         Component selectedComponent = tabbedPane.getSelectedComponent();
         if (selectedComponent instanceof JScrollPaneCustom) {
             JScrollPaneCustom selectedDocument = (JScrollPaneCustom) selectedComponent;
-
-            try {
-                selectedDocument.saveFileToDisk(selectedDocument.getIsNewDocument());
-            } catch (SaveFileException e1) {
-                JOptionPane.showMessageDialog(null, "Error saving the file");
-            } catch (FileErrorException e1) {
-                JOptionPane.showMessageDialog(null, "Error closing the file");
-            }
+            documentManager.saveDocument(selectedDocument.getFile());
         }
-
     }
 }

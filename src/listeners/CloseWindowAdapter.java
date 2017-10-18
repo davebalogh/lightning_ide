@@ -2,9 +2,9 @@ package listeners;
 
 import components.JScrollPaneCustom;
 import components.JTabbedPaneCustom;
-import exceptions.FileErrorException;
-import exceptions.SaveFileException;
+import exceptions.*;
 import helpers.Configuration;
+import helpers.DocumentManager;
 import helpers.Messages;
 
 import javax.swing.*;
@@ -18,9 +18,11 @@ import java.nio.file.Path;
 
 public class CloseWindowAdapter extends WindowAdapter {
     JTabbedPaneCustom currentTabbedPane;
+    private DocumentManager documentManager;
 
-    public CloseWindowAdapter(JTabbedPaneCustom instanceOfJTabbedPaneCustom){
+    public CloseWindowAdapter(JTabbedPaneCustom instanceOfJTabbedPaneCustom, DocumentManager instanceOfDocumentManager){
         currentTabbedPane = instanceOfJTabbedPaneCustom;
+        documentManager = instanceOfDocumentManager;
     }
 
     @Override
@@ -45,31 +47,31 @@ public class CloseWindowAdapter extends WindowAdapter {
                     if(currentTab instanceof JScrollPaneCustom){
                         JScrollPaneCustom jScrollPaneCustom = (JScrollPaneCustom)currentTab;
 
-                        if(jScrollPaneCustom.getTextPane().getWasEdited()){
-                            if(jScrollPaneCustom.getIsNewDocument()){
-                                try {
-                                    jScrollPaneCustom.saveFileToDisk(false);
-                                } catch (SaveFileException e) {
-                                    Messages.showError("Error saving file to disk");
-                                } catch (FileErrorException e) {
-                                    Messages.showError("Error saving file to disk");
+
+                        try {
+                            if (jScrollPaneCustom.getFile().getIsEdited()) {
+
+                                if(jScrollPaneCustom.getFile().getIsNewDocument()) {
+                                    documentManager.getDocumentHashMap().get(jScrollPaneCustom.getFile().getUniqueName()).saveDocument();
                                 }
-                            }
-                            else {
-                                String message = "Do you want to save changes of " + currentTabbedPane.getTitleAt(tabIndex) + "?";
-                                int answer = JOptionPane.showConfirmDialog(currentTabbedPane, message);
-                                if (answer == JOptionPane.YES_OPTION) {
-                                    try {
-                                        jScrollPaneCustom.saveFileToDisk(false);
-                                    } catch (SaveFileException e) {
-                                        Messages.showError("Error saving file to disk");
-                                    } catch (FileErrorException e) {
-                                        Messages.showError("Error saving file to disk");
+                                else {
+                                    boolean response = documentManager.getDocumentHashMap().get(jScrollPaneCustom.getFile().getUniqueName()).closeModifiedDocument();
+
+                                    if (response) {
+                                        documentManager.getDocumentHashMap().remove(jScrollPaneCustom.getFile().getUniqueName());
                                     }
-                                }else if (answer == JOptionPane.CANCEL_OPTION) {
-                                    return;
+                                    else {
+                                        return;
+                                    }
                                 }
                             }
+
+                        } catch (NotOpenDocumentException e1) {
+                            e1.printStackTrace();
+                        } catch (CloseDocumentException e1) {
+                            e1.printStackTrace();
+                        } catch (SaveDocumentException e1) {
+                            e1.printStackTrace();
                         }
                     }
                 }
