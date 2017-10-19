@@ -62,7 +62,14 @@ public class DocumentManager {
         try {
             Documentable newDocument = documentable.getNewInstance();
             newDocument.openDocument();
+            for(String tabUniqueName: documentHashMap.keySet()){
+                if(tabUniqueName.equals(newDocument.getUniqueName())){
+                    Messages.showError("The file is already open.");
+                    return;
+                }
+            }
             documentHashMap.put(newDocument.getUniqueName(), newDocument);
+            newDocument.setIsNewDocument(false);
             tabbedPane.addTabFromFile(newDocument);
         } catch (NotOpenDocumentException e) {
             Messages.showError("Error. Document not opened.");
@@ -79,6 +86,8 @@ public class DocumentManager {
                         try {
                             Documentable newDocument = documentable.getNewInstance();
                             newDocument.openDocument(fileEntry);
+                            newDocument.setIsNewDocument(true);
+                            newDocument.setIsEdited(true);
                             documentHashMap.put(newDocument.getUniqueName(), newDocument);
 
                             tabbedPane.addTabFromFile(newDocument);

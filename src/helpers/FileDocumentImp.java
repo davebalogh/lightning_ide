@@ -16,7 +16,7 @@ public class FileDocumentImp implements Documentable {
     private File file;
     private String name;
     private boolean isEdited = false;
-    public boolean isNewDocument = false;
+    private boolean isNewDocument = false;
 
     public static String getOpenFilesFolderName(){
         return "open_files";
@@ -44,9 +44,29 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
+    public void setIsEdited(boolean isEdited) throws NotOpenDocumentException {
+        if(file != null){
+            this.isEdited = isEdited;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
     public boolean getIsNewDocument() throws NotOpenDocumentException {
         if(file != null){
-            return isNewDocument;
+            return this.isNewDocument;
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public void setIsNewDocument(boolean isNewDocument) throws NotOpenDocumentException {
+        if(file != null){
+            this.isNewDocument = isNewDocument;
         }
         else{
             throw new NotOpenDocumentException();
@@ -87,9 +107,9 @@ public class FileDocumentImp implements Documentable {
     @Override
     public File newDocument() throws NewDocumentException {
         File newDocument = null;
-        int generalLastNumber = 0;
+        int generalLastNumber = 1;
         String tabName = "Tab-" + generalLastNumber;
-
+        this.isNewDocument = true;
         try {
             File openFilesDirectory = new File(FileDocumentImp.getOpenFileDirectory());
             for (final File fileEntry : openFilesDirectory.listFiles()) {
@@ -100,7 +120,7 @@ public class FileDocumentImp implements Documentable {
                         nameOfFile = nameOfFile.substring(0, positionOfPoint);
                     }
 
-                    if(nameOfFile == tabName){
+                    if(nameOfFile.equals(tabName)){
                         generalLastNumber++;
                         tabName = "Tab-" + generalLastNumber;
                     }
@@ -149,8 +169,8 @@ public class FileDocumentImp implements Documentable {
 
         text = String.valueOf(resultado);
 
-        isEdited = false;
-
+        this.isEdited = false;
+        this.isNewDocument = false;
         return file;
     }
 
@@ -221,11 +241,23 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public boolean closeModifiedDocument(File documentForClose, String newTextModified) throws CloseDocumentException, SaveDocumentException {
+    public boolean closeModifiedDocument(File documentForClose, String newTextModified) throws CloseDocumentException, SaveDocumentException, DeleteDocumentException {
         String message = "Do you want to save changes?";
         int answer = JOptionPane.showConfirmDialog(null, message);
         if (answer == JOptionPane.YES_OPTION) {
-            saveDocument(documentForClose, newTextModified);
+            if(!this.isNewDocument){
+                saveDocument(documentForClose, newTextModified);
+            }
+            else{
+                JFileChooser fileChooser = new JFileChooser();
+                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    deleteDocument(documentForClose);
+                    file = fileChooser.getSelectedFile();
+                    saveDocument(file, newTextModified);
+                }
+            }
+
+
             return true;
         }
         else if (answer == JOptionPane.CANCEL_OPTION) {
@@ -236,7 +268,7 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public boolean closeModifiedDocument() throws CloseDocumentException, SaveDocumentException, NotOpenDocumentException {
+    public boolean closeModifiedDocument() throws CloseDocumentException, SaveDocumentException, NotOpenDocumentException, DeleteDocumentException{
         if(file != null){
             return closeModifiedDocument(this.file, this.getText());
         }

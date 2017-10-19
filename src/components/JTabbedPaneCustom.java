@@ -53,6 +53,10 @@ public class JTabbedPaneCustom extends JTabbedPane {
         return null;
     }
 
+    public ArrayList<JPanelForTab> getjPanelForTabList(){
+        return jPanelForTabList;
+    }
+
     public JScrollPaneCustom getjScrollPaneCustom(int index){
         if(jScrollPaneCustom.size() > index){
             return jScrollPaneCustom.get(index);

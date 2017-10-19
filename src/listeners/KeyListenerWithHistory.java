@@ -3,6 +3,7 @@ package listeners;
 import components.JTabbedPaneCustom;
 import exceptions.FileErrorException;
 import exceptions.MementoNotFoundException;
+import exceptions.NotOpenDocumentException;
 import exceptions.SaveFileException;
 import components.JTextPaneCustom;
 import helpers.DocumentManager;
@@ -69,8 +70,14 @@ public class KeyListenerWithHistory implements KeyListener {
             Container auxContainer = textPane.getParent().getParent().getParent();
             if(auxContainer instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
+                try {
+                    jScrollPaneDocument.getFile().setText(textPane.getText());
+                    documentManager.saveDocument(jScrollPaneDocument.getFile());
+                    textPane.setWasEdited(false);
+                } catch (NotOpenDocumentException e1) {
+                    e1.printStackTrace();
+                }
 
-                documentManager.saveDocument(jScrollPaneDocument.getFile());
             }
             else {
                 JOptionPane.showMessageDialog(null, "Error. Try again later");
@@ -89,6 +96,18 @@ public class KeyListenerWithHistory implements KeyListener {
             String textToSave = textPane.getText();
             history.save(textToSave);
             textPane.setWasEdited(true);
+
+            Container auxContainer = textPane.getParent().getParent().getParent();
+            if(auxContainer instanceof JScrollPaneCustom){
+                JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
+
+                try {
+                    jScrollPaneDocument.getFile().setText(textToSave);
+                } catch (NotOpenDocumentException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
         }
     }
 

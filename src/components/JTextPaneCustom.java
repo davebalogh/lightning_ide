@@ -16,22 +16,23 @@ public class JTextPaneCustom extends JTextPane {
         return wasEdited;
     }
     public void setWasEdited(boolean newWasEdited){
-        if(wasEdited != newWasEdited){
-            Container tabContainer = getParent().getParent().getParent().getParent();
 
-            if(tabContainer instanceof JTabbedPaneCustom){
-                JTabbedPaneCustom tabbedPane = (JTabbedPaneCustom)tabContainer;
-                if(tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()) != null){
-                    if(newWasEdited){
-                        tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.ITALIC, 11));
-                    }
-                    else{
-                        tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.PLAIN, 11));
-                    }
-                    wasEdited = newWasEdited;
+        Container tabContainer = getParent().getParent().getParent().getParent();
+
+        if(tabContainer instanceof JTabbedPaneCustom){
+            JTabbedPaneCustom tabbedPane = (JTabbedPaneCustom)tabContainer;
+            if(tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()) != null){
+                if(newWasEdited){
+                    tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.ITALIC, 11));
                 }
+                else{
+                    tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTabFont(new Font("Tahoma", Font.PLAIN, 11));
+                }
+                tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).repaint();
+                wasEdited = newWasEdited;
             }
         }
+
     }
 
 

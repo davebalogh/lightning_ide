@@ -49,19 +49,25 @@ public class CloseTabActionListener implements ActionListener {
 
             try {
                 if (selectedTab.getFile().getIsEdited()) {
+                    selectedTab.getFile().setText(selectedTab.getTextPane().getText());
                     boolean response = documentManager.getDocumentHashMap().get(selectedTab.getFile().getUniqueName()).closeModifiedDocument();
 
                     if (response) {
-                        documentManager.deleteDocument(selectedTab.getFile());
-                        tabbedPane.removeTabAt(selectedIndex);
+                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
+                        tabbedPane.remove(selectedIndex);
                     }
+
                 } else {
                     if(selectedTab.getFile().getIsNewDocument()){
+                        documentManager.deleteDocument(selectedTab.getFile());
+                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
+                        tabbedPane.remove(selectedIndex);
                         documentManager.getDocumentHashMap().remove(selectedTab.getFile().getUniqueName());
-                        tabbedPane.removeTabAt(selectedIndex);
                     }
                     else {
-                        tabbedPane.removeTabAt(selectedIndex);
+                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
+                        tabbedPane.remove(selectedIndex);
+                        documentManager.getDocumentHashMap().remove(selectedTab.getFile().getUniqueName());
                     }
                 }
             } catch (NotOpenDocumentException e1) {
@@ -69,6 +75,8 @@ public class CloseTabActionListener implements ActionListener {
             } catch (CloseDocumentException e1) {
                 e1.printStackTrace();
             } catch (SaveDocumentException e1) {
+                e1.printStackTrace();
+            } catch (DeleteDocumentException e1) {
                 e1.printStackTrace();
             }
         }

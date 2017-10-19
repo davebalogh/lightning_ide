@@ -72,6 +72,8 @@ public class CloseWindowAdapter extends WindowAdapter {
                             e1.printStackTrace();
                         } catch (SaveDocumentException e1) {
                             e1.printStackTrace();
+                        } catch (DeleteDocumentException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
