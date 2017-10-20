@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class PanelManager {
     JTabbedPaneCustom contentCenterPane;
+    JBottomPanel contentBottomPane;
 
     public JTabbedPaneCustom getContentCenterPane() {
         return contentCenterPane;
@@ -21,6 +22,4 @@ public class PanelManager {
     public void setContentBottomPane(JBottomPanel contentBottomPane) {
         this.contentBottomPane = contentBottomPane;
     }
-
-    JBottomPanel contentBottomPane;
 }

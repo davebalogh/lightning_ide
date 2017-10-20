@@ -22,10 +22,14 @@ public class KeyListenerForProgram  implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_O) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             documentManager.openDocumentAndAddToJTabbedPane();
-        }else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
+        }
+        else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
             documentManager.getTabbedPane().addTabFromFile(newDocument);
             documentManager.getTabbedPane().getjScrollPaneCustom().get(documentManager.getTabbedPane().getjScrollPaneCustom().size()-1).setIsNewDocument(true);
+        }
+        else if ((e.getKeyCode() == KeyEvent.VK_F) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
+            documentManager.getPanelManager().getContentBottomPane().setVisible(true);
         }
     }
 

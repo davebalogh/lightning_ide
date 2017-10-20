@@ -13,7 +13,7 @@ public interface Documentable {
     public boolean getIsSaveAs();
     public File getFile() throws NotOpenDocumentException;
     public String getText();
-    public void setText(String textModified) throws NotOpenDocumentException;
+    public void setText(String textModified);
     public String getName();
     public String getUniqueName() throws NotOpenDocumentException;
     public File newDocument() throws NewDocumentException;

@@ -32,7 +32,7 @@ public class JMenuBarCustom extends JMenuBar {
         fileMenu.add(closeTabItem);
 
         JMenuItem saveTabItem = new JMenuItem("Save Tab");
-        saveTabItem.addActionListener(new SaveTabActionListener(tabbedPane, documentManager));
+        saveTabItem.addActionListener(new SaveTabActionListener(documentManager));
         fileMenu.add(saveTabItem);
 
         this.add(fileMenu);

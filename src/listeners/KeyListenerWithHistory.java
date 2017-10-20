@@ -1,10 +1,7 @@
 package listeners;
 
-import components.JTabbedPaneCustom;
-import exceptions.FileErrorException;
 import exceptions.MementoNotFoundException;
 import exceptions.NotOpenDocumentException;
-import exceptions.SaveFileException;
 import components.JTextPaneCustom;
 import helpers.DocumentManager;
 import helpers.History;
@@ -71,14 +68,12 @@ public class KeyListenerWithHistory implements KeyListener {
             Container auxContainer = textPane.getParent().getParent().getParent();
             if(auxContainer instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
-                try {
-                    jScrollPaneDocument.getFile().setText(textPane.getText());
-                    documentManager.saveDocument(jScrollPaneDocument.getFile());
-                    textPane.setWasEdited(false);
-                    textPane.setSelectedTabTitle(jScrollPaneDocument.getFile().getName());
-                } catch (NotOpenDocumentException e1) {
-                    e1.printStackTrace();
-                }
+
+                jScrollPaneDocument.getFile().setText(textPane.getText());
+                documentManager.saveDocument(jScrollPaneDocument.getFile());
+                textPane.setWasEdited(false);
+                textPane.setSelectedTabTitle(jScrollPaneDocument.getFile().getName());
+
 
             }
             else {
@@ -95,7 +90,6 @@ public class KeyListenerWithHistory implements KeyListener {
 
         }else if ((e.getKeyCode() == KeyEvent.VK_F) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             documentManager.getPanelManager().getContentBottomPane().setVisible(true);
-            documentManager.getPanelManager().getContentBottomPane().getTextField().requestFocus();
         }else if(e.getKeyChar() != '\uFFFF'){
             int keyLocation = textPane.getCaretPosition();
             caretPosition = keyLocation - 1;
@@ -106,14 +100,8 @@ public class KeyListenerWithHistory implements KeyListener {
             Container auxContainer = textPane.getParent().getParent().getParent();
             if(auxContainer instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
-
-                try {
-                    jScrollPaneDocument.getFile().setText(textToSave);
-                } catch (NotOpenDocumentException e1) {
-                    e1.printStackTrace();
-                }
+                jScrollPaneDocument.getFile().setText(textToSave);
             }
-
         }
     }
 

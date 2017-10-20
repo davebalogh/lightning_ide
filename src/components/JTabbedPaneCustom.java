@@ -11,6 +11,14 @@ import java.util.ArrayList;
 public class JTabbedPaneCustom extends JTabbedPane {
     JScrollPaneCustom lastJSCrollPaneAdded;
     ArrayList<JPanelForTab> jPanelForTabList;
+    ArrayList<JScrollPaneCustom> jScrollPaneCustomList;
+    DocumentManager documentManager;
+    ArrayList<JScrollPaneCustom> jScrollPaneCustom;
+
+    public ArrayList<JScrollPaneCustom> getjScrollPaneCustomList() {
+        return jScrollPaneCustomList;
+    }
+
 
     public DocumentManager getDocumentManager() {
         return documentManager;
@@ -20,14 +28,9 @@ public class JTabbedPaneCustom extends JTabbedPane {
         this.documentManager = documentManager;
     }
 
-    DocumentManager documentManager;
-
     public ArrayList<JScrollPaneCustom> getjScrollPaneCustom() {
         return jScrollPaneCustom;
     }
-
-    ArrayList<JScrollPaneCustom> jScrollPaneCustom;
-
 
     public void setCustomTabComponentAt(int index, Component newComponent){
         if(newComponent instanceof JPanelForTab){
@@ -61,12 +64,22 @@ public class JTabbedPaneCustom extends JTabbedPane {
         return lastJSCrollPaneAdded;
     }
 
+    public JScrollPaneCustom getSelectedJSCrollPane(){
+        Component selectedComponent = this.getSelectedComponent();
+        JScrollPaneCustom selectedDocument = null;
+        if (selectedComponent instanceof JScrollPaneCustom) {
+            selectedDocument = (JScrollPaneCustom) selectedComponent;
+        }
+        return selectedDocument;
+    }
+
     public JTabbedPaneCustom(){
         super();
         this.setBackground( new Color(49, 52, 64));
         this.setUI(new BasicTabbedPaneUICustom(this));
         this.addChangeListener(new ChangeListenerForTabbedPane());
         jPanelForTabList = new ArrayList<>();
+        jScrollPaneCustomList = new ArrayList<>();
         jScrollPaneCustom = new ArrayList<>();
     }
 
@@ -75,6 +88,7 @@ public class JTabbedPaneCustom extends JTabbedPane {
         lastJSCrollPaneAdded = new JScrollPaneCustom(openFile);
         lastJSCrollPaneAdded.setDocumentManager(documentManager);
         lastJSCrollPaneAdded.initialize(openFile.getText());
+        jScrollPaneCustomList.add(lastJSCrollPaneAdded);
 
         jScrollPaneCustom.add(lastJSCrollPaneAdded);
         int tabCount = this.getTabCount() + 1;

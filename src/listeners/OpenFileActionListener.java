@@ -1,10 +1,7 @@
 package listeners;
 
 import components.JTabbedPaneCustom;
-import exceptions.OpenFileException;
 import helpers.DocumentManager;
-import helpers.Messages;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

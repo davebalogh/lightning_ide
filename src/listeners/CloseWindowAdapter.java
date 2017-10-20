@@ -33,6 +33,7 @@ public class CloseWindowAdapter extends WindowAdapter {
             if(currentTab instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneCustom = (JScrollPaneCustom)currentTab;
                 jScrollPaneCustom.getFile().setSaveAs(true);
+                jScrollPaneCustom.getFile().setText(jScrollPaneCustom.getTextPane().getText());
                 documentManager.closeDocument(jScrollPaneCustom.getFile());
             }
         }

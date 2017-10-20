@@ -1,23 +1,8 @@
 package helpers;
 
 import com.apple.eawt.Application;
-import components.JScrollPaneCustom;
-import components.JTabbedPaneCustom;
-import exceptions.FileErrorException;
-import exceptions.OpenFileException;
-import exceptions.SaveFileException;
-import listeners.CloseWindowAdapter;
-import sun.misc.resources.Messages_es;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Configuration {

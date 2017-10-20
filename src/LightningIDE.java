@@ -16,10 +16,10 @@ class LightningIDE extends JFrame{
         super("Lightning IDE");
 
         Configuration.initializeSettings(this);
-
-        JTabbedPaneCustom tabbedPane = new JTabbedPaneCustom();
-        JBottomPanel contentBottom = new JBottomPanel();
         PanelManager panelManager = new PanelManager();
+        JTabbedPaneCustom tabbedPane = new JTabbedPaneCustom();
+        JBottomPanel contentBottom = new JBottomPanel(panelManager);
+
         panelManager.setContentCenterPane(tabbedPane);
         panelManager.setContentBottomPane(contentBottom);
 

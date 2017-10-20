@@ -100,14 +100,9 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public void setText(String textModified) throws NotOpenDocumentException {
-        if(file != null){
-            text = textModified;
-            isEdited = true;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public void setText(String textModified) {
+        text = textModified;
+        isEdited = true;
     }
 
     @Override

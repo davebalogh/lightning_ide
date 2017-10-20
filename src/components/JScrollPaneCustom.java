@@ -1,17 +1,11 @@
 package components;
 
-import exceptions.FileErrorException;
-import exceptions.NotOpenDocumentException;
-import exceptions.SaveFileException;
 import helpers.DocumentManager;
-import helpers.Messages;
 import interfaces.Documentable;
-
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.*;
-import java.io.*;
 
 public class JScrollPaneCustom extends JScrollPane {
     DefaultStyledDocument styledDocument = new StyledDocumentCustom();
