@@ -2,6 +2,8 @@ import java.awt.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import components.JBottomPanel;
 import components.JMenuBarCustom;
 import components.JTabbedPaneCustom;
 import helpers.*;
@@ -10,20 +12,19 @@ import listeners.CloseWindowAdapter;
 import listeners.KeyListenerForProgram;
 
 class LightningIDE extends JFrame{
-    JTabbedPaneCustom tabbedPane;
-
-    public JTabbedPaneCustom getTabbedPane() {
-        return tabbedPane;
-    }
-
     public LightningIDE() {
         super("Lightning IDE");
 
         Configuration.initializeSettings(this);
 
-        tabbedPane = new JTabbedPaneCustom();
+        JTabbedPaneCustom tabbedPane = new JTabbedPaneCustom();
+        JBottomPanel contentBottom = new JBottomPanel();
+        PanelManager panelManager = new PanelManager();
+        panelManager.setContentCenterPane(tabbedPane);
+        panelManager.setContentBottomPane(contentBottom);
 
-        DocumentManager documentManager = new DocumentManager(tabbedPane, new FileDocumentImp());
+        DocumentManager documentManager = new DocumentManager(panelManager, new FileDocumentImp());
+
         ArrayList<Documentable> documentList = documentManager.loadOpenTabs();
         for(Documentable document: documentList){
             tabbedPane.addTabFromFile(document);
@@ -38,7 +39,8 @@ class LightningIDE extends JFrame{
             tabbedPane.getjScrollPaneCustom().get(tabbedPane.getjScrollPaneCustom().size()-1).setIsNewDocument(true);
         }
 
-        getContentPane().add(tabbedPane, BorderLayout.CENTER);
+        getContentPane().add(panelManager.getContentCenterPane(), BorderLayout.CENTER);
+        getContentPane().add(panelManager.getContentBottomPane(), BorderLayout.SOUTH);
 
         this.addWindowListener(new CloseWindowAdapter(tabbedPane, documentManager));
 

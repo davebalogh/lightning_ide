@@ -89,11 +89,13 @@ public class KeyListenerWithHistory implements KeyListener {
             documentManager.openDocumentAndAddToJTabbedPane();
 
         }else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
-            Container auxContainer = textPane.getParent().getParent().getParent().getParent();
             Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
             documentManager.getTabbedPane().addTabFromFile(newDocument);
             documentManager.getTabbedPane().getjScrollPaneCustom().get(documentManager.getTabbedPane().getjScrollPaneCustom().size()-1).setIsNewDocument(true);
 
+        }else if ((e.getKeyCode() == KeyEvent.VK_F) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
+            documentManager.getPanelManager().getContentBottomPane().setVisible(true);
+            documentManager.getPanelManager().getContentBottomPane().getTextField().requestFocus();
         }else if(e.getKeyChar() != '\uFFFF'){
             int keyLocation = textPane.getCaretPosition();
             caretPosition = keyLocation - 1;

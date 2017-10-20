@@ -21,29 +21,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Configuration {
-
-    public static String getOpenFilesFolderName(){
-        return "open_files";
-    }
-
-    public static Path getOpenFilesFolderPath() throws URISyntaxException{
-        String openFilesPathString = Configuration.getOpenFileDirectory();
-        return Paths.get(openFilesPathString);
-    }
-
-    public static String getOpenFileDirectory() throws URISyntaxException{
-            String programPath = Configuration.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-            String openFilesPathString = programPath + "/" + Configuration.getOpenFilesFolderName();
-            return openFilesPathString;
-    }
-
     public static void initializeSettings(JFrame frameToApply){
         frameToApply.setSize(600, 600);
         frameToApply.setLocationRelativeTo(null);
         frameToApply.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-
-
         Container generalContainer = frameToApply.getContentPane();
         generalContainer.setBackground(new Color(38,40,49));
 
@@ -60,5 +41,4 @@ public class Configuration {
         Application application = Application.getApplication();
         application.setDockIconImage(SortByIcon.getImage());
     }
-
 }

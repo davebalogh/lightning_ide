@@ -15,14 +15,21 @@ public class DocumentManager {
     private Documentable documentable;
     private HashMap<String, Documentable> documentHashMap;
 
+    public PanelManager getPanelManager() {
+        return panelManager;
+    }
+
+    private PanelManager panelManager;
+
     public JTabbedPaneCustom getTabbedPane() {
         return tabbedPane;
     }
 
     private JTabbedPaneCustom tabbedPane;
 
-    public DocumentManager(JTabbedPaneCustom instanceOfTabbedPane, Documentable documentableImplementation){
-        tabbedPane = instanceOfTabbedPane;
+    public DocumentManager(PanelManager instanceOfPanelManager, Documentable documentableImplementation){
+        this.panelManager = instanceOfPanelManager;
+        tabbedPane = instanceOfPanelManager.getContentCenterPane();
         tabbedPane.setDocumentManager(this);
         documentable = documentableImplementation;
         documentHashMap = new HashMap();

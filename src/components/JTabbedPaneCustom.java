@@ -1,19 +1,11 @@
 package components;
 
-import exceptions.FileErrorException;
-import exceptions.NotOpenDocumentException;
-import exceptions.OpenFileException;
-import helpers.Configuration;
 import helpers.DocumentManager;
-import helpers.Messages;
 import interfaces.Documentable;
 import listeners.ChangeListenerForTabbedPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class JTabbedPaneCustom extends JTabbedPane {

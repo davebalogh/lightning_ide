@@ -24,13 +24,13 @@ public class FileDocumentImp implements Documentable {
     }
 
     public static Path getOpenFilesFolderPath() throws URISyntaxException {
-        String openFilesPathString = Configuration.getOpenFileDirectory();
+        String openFilesPathString = FileDocumentImp.getOpenFileDirectory();
         return Paths.get(openFilesPathString);
     }
 
     public static String getOpenFileDirectory() throws URISyntaxException{
         String programPath = Configuration.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-        String openFilesPathString = programPath + "/" + Configuration.getOpenFilesFolderName();
+        String openFilesPathString = programPath + "/" + FileDocumentImp.getOpenFilesFolderName();
         return openFilesPathString;
     }
 
@@ -133,7 +133,7 @@ public class FileDocumentImp implements Documentable {
                 }
             }
 
-            newDocument = new File(Configuration.getOpenFileDirectory() + "/" + tabName);
+            newDocument = new File(FileDocumentImp.getOpenFileDirectory() + "/" + tabName);
             newDocument.createNewFile();
             name = tabName;
 
