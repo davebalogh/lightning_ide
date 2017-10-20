@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import javax.swing.*;
 import components.JMenuBarCustom;
 import components.JTabbedPaneCustom;
 import helpers.*;
+import interfaces.Documentable;
 import listeners.CloseWindowAdapter;
 import listeners.KeyListenerForProgram;
 
@@ -22,7 +24,19 @@ class LightningIDE extends JFrame{
         tabbedPane = new JTabbedPaneCustom();
 
         DocumentManager documentManager = new DocumentManager(tabbedPane, new FileDocumentImp());
-        documentManager.loadOpenTabs();
+        ArrayList<Documentable> documentList = documentManager.loadOpenTabs();
+        for(Documentable document: documentList){
+            tabbedPane.addTabFromFile(document);
+            tabbedPane.getLastJSCrollPaneAdded().setIsLoadedDocument(true);
+            tabbedPane.getLastJSCrollPaneAdded().setIsNewDocument(true);
+            tabbedPane.getLastJSCrollPaneAdded().getTextPane().setWasEdited(true);
+        }
+
+        if(documentList.size() == 0){
+            Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
+            tabbedPane.addTabFromFile(newDocument);
+            tabbedPane.getjScrollPaneCustom().get(tabbedPane.getjScrollPaneCustom().size()-1).setIsNewDocument(true);
+        }
 
         getContentPane().add(tabbedPane, BorderLayout.CENTER);
 

@@ -9,10 +9,12 @@ public interface Documentable {
     public void setIsEdited(boolean isEdited) throws NotOpenDocumentException;
     public boolean getIsNewDocument() throws NotOpenDocumentException;
     public void setIsNewDocument(boolean isNewDocument) throws NotOpenDocumentException;
+    public void setSaveAs(boolean isSaveAs);
+    public boolean getIsSaveAs();
     public File getFile() throws NotOpenDocumentException;
-    public String getText() throws NotOpenDocumentException;
+    public String getText();
     public void setText(String textModified) throws NotOpenDocumentException;
-    public String getName() throws NotOpenDocumentException;
+    public String getName();
     public String getUniqueName() throws NotOpenDocumentException;
     public File newDocument() throws NewDocumentException;
     public File openDocument() throws OpenDocumentException;

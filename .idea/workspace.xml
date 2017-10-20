@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2ba63cf-e2d9-4e83-b366-0d61594bb7c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lightning_ide/helpers/DocumentManager.class" afterPath="$PROJECT_DIR$/out/production/lightning_ide/helpers/DocumentManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lightning_ide/helpers/FileDocumentImp.class" afterPath="$PROJECT_DIR$/out/production/lightning_ide/helpers/FileDocumentImp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/lightning_ide/interfaces/Documentable.class" afterPath="$PROJECT_DIR$/out/production/lightning_ide/interfaces/Documentable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LightningIDE.java" afterPath="$PROJECT_DIR$/src/LightningIDE.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/JScrollPaneCustom.java" afterPath="$PROJECT_DIR$/src/components/JScrollPaneCustom.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/JTabbedPaneCustom.java" afterPath="$PROJECT_DIR$/src/components/JTabbedPaneCustom.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/JTextPaneCustom.java" afterPath="$PROJECT_DIR$/src/components/JTextPaneCustom.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/helpers/DocumentManager.java" afterPath="$PROJECT_DIR$/src/helpers/DocumentManager.java" />
@@ -13,7 +12,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interfaces/Documentable.java" afterPath="$PROJECT_DIR$/src/interfaces/Documentable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/listeners/CloseTabActionListener.java" afterPath="$PROJECT_DIR$/src/listeners/CloseTabActionListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java" afterPath="$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java" afterPath="$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java" afterPath="$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/listeners/NewTabActionListener.java" afterPath="$PROJECT_DIR$/src/listeners/NewTabActionListener.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +33,8 @@
       <file leaf-file-name="CloseWindowAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="56" column="29" lean-forward="false" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+            <state relative-caret-position="300">
+              <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -42,12 +43,10 @@
       <file leaf-file-name="JScrollPaneCustom.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/JScrollPaneCustom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="70" column="20" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="12" />
+            <state relative-caret-position="9">
+              <caret line="70" column="55" lean-forward="false" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1473#1474#0" expanded="true" />
-                <element signature="e#1500#1501#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,22 +55,22 @@
       <file leaf-file-name="DocumentManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/helpers/DocumentManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+            <state relative-caret-position="237">
+              <caret line="99" column="42" lean-forward="false" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4495#4496#0" expanded="true" />
-                <element signature="e#4533#4534#0" expanded="true" />
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#473#474#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CloseTabActionListener.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/listeners/CloseTabActionListener.java">
+      <file leaf-file-name="KeyListenerWithHistory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-48">
-              <caret line="56" column="57" lean-forward="false" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
+            <state relative-caret-position="380">
+              <caret line="77" column="88" lean-forward="false" selection-start-line="77" selection-start-column="88" selection-end-line="77" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -80,22 +79,28 @@
       <file leaf-file-name="JTextPaneCustom.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/JTextPaneCustom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="24" column="77" lean-forward="false" selection-start-line="24" selection-start-column="77" selection-end-line="24" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileDocumentImp.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FileDocumentImp.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/helpers/FileDocumentImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="107" column="59" lean-forward="true" selection-start-line="107" selection-start-column="59" selection-end-line="107" selection-end-column="59" />
+            <state relative-caret-position="90">
+              <caret line="213" column="9" lean-forward="true" selection-start-line="213" selection-start-column="9" selection-end-line="213" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#481#482#0" expanded="true" />
-                <element signature="e#516#517#0" expanded="true" />
+                <element signature="e#2134#2135#0" expanded="true" />
+                <element signature="e#2174#2175#0" expanded="true" />
+                <element signature="e#2224#2225#0" expanded="true" />
+                <element signature="e#2260#2261#0" expanded="true" />
+                <element signature="e#2521#2522#0" expanded="true" />
+                <element signature="e#2548#2549#0" expanded="true" />
+                <element signature="e#9848#9849#0" expanded="true" />
+                <element signature="e#9875#9876#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,12 +109,10 @@
       <file leaf-file-name="JTabbedPaneCustom.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/JTabbedPaneCustom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="55" column="54" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="54" />
+            <state relative-caret-position="792">
+              <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1516#1517#0" expanded="true" />
-                <element signature="e#1555#1556#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,21 +130,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CustomBasicTabbedPaneUI</find>
-      <find>JLabel</find>
-      <find>openFilesPath</find>
-      <find>addTabFromFile</find>
-      <find>addTab</find>
-      <find>removeFileFromDisk</find>
-      <find>JScrollPaneCustom</find>
-      <find>tabCount</find>
-      <find>JTabAndPane</find>
       <find>getOpenFilesFolderPath</find>
       <find>opendoc</find>
       <find>JScrollPaneCustom(</find>
       <find>jScrollPaneCustom</find>
       <find>openDocument</find>
-      <find>getF</find>
       <find>do you</find>
       <find>save</find>
       <find>getjScrollPaneCustom</find>
@@ -157,6 +150,16 @@
       <find>jPanelForTabList</find>
       <find>JPanelForTabçç</find>
       <find>JPanelForTab</find>
+      <find>modified</find>
+      <find>closeModifiedDocument</find>
+      <find>getName</find>
+      <find>setTe</find>
+      <find>getF</find>
+      <find>uniq</find>
+      <find>isclo</find>
+      <find>isClosingProgram</find>
+      <find>modifi</find>
+      <find>saved</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -211,28 +214,28 @@
         <option value="$PROJECT_DIR$/src/components/JTabAndPane.java" />
         <option value="$PROJECT_DIR$/src/exceptions/NotOpenDocumentException.java" />
         <option value="$PROJECT_DIR$/src/helpers/Configuration.java" />
-        <option value="$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java" />
-        <option value="$PROJECT_DIR$/src/LightningIDE.java" />
         <option value="$PROJECT_DIR$/src/listeners/SaveTabActionListener.java" />
         <option value="$PROJECT_DIR$/src/components/JPanelForTab.java" />
-        <option value="$PROJECT_DIR$/src/components/JScrollPaneCustom.java" />
         <option value="$PROJECT_DIR$/src/listeners/OpenFileActionListener.java" />
         <option value="$PROJECT_DIR$/src/components/JMenuBarCustom.java" />
+        <option value="$PROJECT_DIR$/src/listeners/CloseTabActionListener.java" />
+        <option value="$PROJECT_DIR$/src/components/JScrollPaneCustom.java" />
+        <option value="$PROJECT_DIR$/src/components/JTabbedPaneCustom.java" />
         <option value="$PROJECT_DIR$/src/listeners/NewTabActionListener.java" />
-        <option value="$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java" />
-        <option value="$PROJECT_DIR$/src/interfaces/Documentable.java" />
+        <option value="$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java" />
+        <option value="$PROJECT_DIR$/src/LightningIDE.java" />
         <option value="$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java" />
+        <option value="$PROJECT_DIR$/src/components/JTextPaneCustom.java" />
+        <option value="$PROJECT_DIR$/src/interfaces/Documentable.java" />
+        <option value="$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java" />
         <option value="$PROJECT_DIR$/src/helpers/DocumentManager.java" />
         <option value="$PROJECT_DIR$/src/helpers/FileDocumentImp.java" />
-        <option value="$PROJECT_DIR$/src/components/JTextPaneCustom.java" />
-        <option value="$PROJECT_DIR$/src/components/JTabbedPaneCustom.java" />
-        <option value="$PROJECT_DIR$/src/listeners/CloseTabActionListener.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-13" />
-    <option name="y" value="47" />
+    <option name="x" value="29" />
+    <option name="y" value="28" />
     <option name="width" value="1260" />
     <option name="height" value="722" />
   </component>
@@ -254,10 +257,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -316,6 +316,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -477,8 +480,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-13" y="47" width="1260" height="722" extended-state="0" />
-    <editor active="true" />
+    <frame x="29" y="28" width="1260" height="722" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -493,8 +495,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40923077" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5507692" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -520,7 +522,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3246154" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3246154" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.54923075" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -530,8 +532,8 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30461538" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40923077" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5507692" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
@@ -546,7 +548,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="320" />
+      <option name="time" value="333" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -630,9 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -692,14 +691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding>
-            <element signature="e#161#162#0" expanded="false" />
-            <element signature="e#191#192#0" expanded="false" />
-            <element signature="e#241#242#0" expanded="false" />
-            <element signature="e#269#270#0" expanded="false" />
-            <element signature="e#335#336#0" expanded="false" />
-            <element signature="e#372#373#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -707,7 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -736,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,7 +743,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="16" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,10 +750,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="14" column="32" lean-forward="false" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-          <folding>
-            <element signature="e#345#346#0" expanded="false" />
-            <element signature="e#382#383#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -773,7 +757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="16" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -781,7 +764,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="14" column="28" lean-forward="false" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -800,10 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-          <folding>
-            <element signature="e#355#356#0" expanded="false" />
-            <element signature="e#392#393#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -811,10 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="e#345#346#0" expanded="false" />
-            <element signature="e#382#383#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -834,14 +808,14 @@
         <state relative-caret-position="345">
           <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
-            <element signature="e#237#238#0" expanded="true" />
-            <element signature="e#277#278#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#357#358#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#499#500#0" expanded="true" />
-            <element signature="e#547#548#0" expanded="true" />
+            <element signature="e#237#238#0" expanded="false" />
+            <element signature="e#277#278#0" expanded="false" />
+            <element signature="e#322#323#0" expanded="false" />
+            <element signature="e#357#358#0" expanded="false" />
+            <element signature="e#402#403#0" expanded="false" />
+            <element signature="e#437#438#0" expanded="false" />
+            <element signature="e#499#500#0" expanded="false" />
+            <element signature="e#547#548#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -854,26 +828,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LightningIDE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/listeners/SaveTabActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="29" column="9" lean-forward="false" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/JPanelForTab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="41" column="102" lean-forward="false" selection-start-line="41" selection-start-column="85" selection-end-line="41" selection-end-column="102" />
           <folding />
         </state>
       </provider>
@@ -886,48 +844,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/listeners/NewTabActionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="19" column="55" lean-forward="true" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-          <folding>
-            <element signature="e#557#558#0" expanded="false" />
-            <element signature="e#619#620#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="28" column="13" lean-forward="true" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/listeners/OpenFileActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="16" column="8" lean-forward="true" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/interfaces/Documentable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -941,73 +861,125 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/JScrollPaneCustom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="70" column="20" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="12" />
+        <state relative-caret-position="9">
+          <caret line="70" column="55" lean-forward="false" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1473#1474#0" expanded="true" />
-            <element signature="e#1500#1501#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/listeners/KeyListenerForProgram.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="56" column="29" lean-forward="false" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+        <state relative-caret-position="61">
+          <caret line="26" column="68" lean-forward="false" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helpers/FileDocumentImp.java">
+    <entry file="file://$PROJECT_DIR$/src/LightningIDE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="107" column="59" lean-forward="true" selection-start-line="107" selection-start-column="59" selection-end-line="107" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#516#517#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="375">
+          <caret line="36" column="51" lean-forward="true" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helpers/DocumentManager.java">
+    <entry file="file://$PROJECT_DIR$/src/listeners/NewTabActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4495#4496#0" expanded="true" />
-            <element signature="e#4533#4534#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="239">
+          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="22" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/JPanelForTab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="41" column="102" lean-forward="false" selection-start-line="41" selection-start-column="85" selection-end-line="41" selection-end-column="102" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/JTextPaneCustom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="24" column="77" lean-forward="false" selection-start-line="24" selection-start-column="77" selection-end-line="24" selection-end-column="77" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/interfaces/Documentable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/JTabbedPaneCustom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="55" column="54" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="54" />
+        <state relative-caret-position="792">
+          <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1516#1517#0" expanded="true" />
-            <element signature="e#1555#1556#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/listeners/CloseTabActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-48">
-          <caret line="56" column="57" lean-forward="false" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
+        <state relative-caret-position="315">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/listeners/KeyListenerWithHistory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="77" column="88" lean-forward="false" selection-start-line="77" selection-start-column="88" selection-end-line="77" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/listeners/CloseWindowAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers/DocumentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="99" column="42" lean-forward="false" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers/FileDocumentImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="213" column="9" lean-forward="true" selection-start-line="213" selection-start-column="9" selection-end-line="213" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2134#2135#0" expanded="true" />
+            <element signature="e#2174#2175#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2260#2261#0" expanded="true" />
+            <element signature="e#2521#2522#0" expanded="true" />
+            <element signature="e#2548#2549#0" expanded="true" />
+            <element signature="e#9848#9849#0" expanded="true" />
+            <element signature="e#9875#9876#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

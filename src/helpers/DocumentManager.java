@@ -8,11 +8,17 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.*;
 
 public class DocumentManager {
     private Documentable documentable;
     private HashMap<String, Documentable> documentHashMap;
+
+    public JTabbedPaneCustom getTabbedPane() {
+        return tabbedPane;
+    }
+
     private JTabbedPaneCustom tabbedPane;
 
     public DocumentManager(JTabbedPaneCustom instanceOfTabbedPane, Documentable documentableImplementation){
@@ -20,6 +26,62 @@ public class DocumentManager {
         tabbedPane.setDocumentManager(this);
         documentable = documentableImplementation;
         documentHashMap = new HashMap();
+    }
+
+    public boolean closeDocumentAndTab(Documentable documentToClose, String textModified){
+        try {
+            if (documentToClose.getIsEdited()) {
+                documentToClose.setText(textModified);
+                boolean response = documentToClose.closeModifiedDocument();
+
+                if (response == false) {
+                    return false;
+                }
+
+            } else {
+                if(documentToClose.getIsNewDocument()){
+                    this.deleteDocument(documentToClose);
+                }
+
+                documentHashMap.remove(documentToClose.getUniqueName());
+            }
+        } catch (NotOpenDocumentException e1) {
+            JOptionPane.showMessageDialog(null, "Error. Document not opened.");
+        } catch (CloseDocumentException e1) {
+            e1.printStackTrace();
+        } catch (SaveDocumentException e1) {
+            JOptionPane.showMessageDialog(null, "Error saving document.");
+        } catch (DeleteDocumentException e1) {
+            JOptionPane.showMessageDialog(null, "Error removing document.");
+        }
+
+        return true;
+    }
+
+    public void closeDocument(Documentable documentToClose){
+        try {
+            if (documentToClose.getIsEdited()) {
+
+                if(documentToClose.getIsNewDocument()) {
+                    documentToClose.saveDocument();
+                }
+                else {
+                    boolean response = documentToClose.closeModifiedDocument();
+
+                    if (response) {
+                        documentHashMap.remove(documentToClose.getUniqueName());
+                    }
+                }
+            }
+        } catch (NotOpenDocumentException e1) {
+            e1.printStackTrace();
+        } catch (CloseDocumentException e1) {
+            e1.printStackTrace();
+        } catch (SaveDocumentException e1) {
+            JOptionPane.showMessageDialog(null, "Error saving document.");
+        } catch (DeleteDocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteDocument(Documentable documentToDelete){
@@ -43,19 +105,19 @@ public class DocumentManager {
         }
     }
 
-    public void createEmptyDocumentAndNewTab(){
+    public Documentable createEmptyDocumentAndNewTab(){
 
         Documentable newDocument = documentable.getNewInstance();
         try {
             newDocument.newDocument();
             documentHashMap.put(newDocument.getUniqueName(), newDocument);
-            tabbedPane.addTabFromFile(newDocument);
-            tabbedPane.getjScrollPaneCustom().get(tabbedPane.getjScrollPaneCustom().size()-1).setIsNewDocument(true);
         } catch (NewDocumentException e) {
             Messages.showError("Error creating file for new tab");
         } catch (NotOpenDocumentException e) {
             e.printStackTrace();
         }
+
+        return newDocument;
     }
 
     public void openDocumentAndAddToJTabbedPane(){
@@ -78,35 +140,33 @@ public class DocumentManager {
         }
     }
 
-    public void loadOpenTabs(){
-        try {
-            if(documentable.getOpenDocumentsList().length != 0){
-                for (final File fileEntry : documentable.getOpenDocumentsList()) {
-                    if (!fileEntry.isDirectory()) {
-                        try {
-                            Documentable newDocument = documentable.getNewInstance();
-                            newDocument.openDocument(fileEntry);
-                            newDocument.setIsNewDocument(true);
-                            newDocument.setIsEdited(true);
-                            documentHashMap.put(newDocument.getUniqueName(), newDocument);
+    public ArrayList<Documentable> loadOpenTabs(){
+        ArrayList<Documentable> documentList = new ArrayList<>();
 
-                            tabbedPane.addTabFromFile(newDocument);
-                            tabbedPane.getLastJSCrollPaneAdded().setIsLoadedDocument(true);
-                            tabbedPane.getLastJSCrollPaneAdded().setIsNewDocument(true);
-                            tabbedPane.getLastJSCrollPaneAdded().getTextPane().setWasEdited(true);
-                        } catch (OpenDocumentException e) {
-                            e.printStackTrace();
-                        }
+        try {
+            //documentList = documentable.getOpenDocumentsList();
+            for (final File fileEntry : documentable.getOpenDocumentsList()) {
+                if (!fileEntry.isDirectory()) {
+                    try {
+                        Documentable newDocument = documentable.getNewInstance();
+                        newDocument.openDocument(fileEntry);
+                        newDocument.setIsNewDocument(true);
+                        newDocument.setIsEdited(true);
+                        documentHashMap.put(newDocument.getUniqueName(), newDocument);
+                        documentList.add(newDocument);
+                    } catch (OpenDocumentException e) {
+                        e.printStackTrace();
                     }
                 }
-            }else{
-                this.createEmptyDocumentAndNewTab();
             }
+
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (NotOpenDocumentException e) {
             e.printStackTrace();
         }
+
+        return documentList;
     }
 
     public HashMap<String, Documentable> getDocumentHashMap() {

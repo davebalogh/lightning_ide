@@ -15,6 +15,19 @@ public class JTextPaneCustom extends JTextPane {
     public boolean getWasEdited(){
         return wasEdited;
     }
+    public void setSelectedTabTitle(String newTitle){
+        Container tabContainer = getParent().getParent().getParent().getParent();
+
+        if(tabContainer instanceof JTabbedPaneCustom){
+            JTabbedPaneCustom tabbedPane = (JTabbedPaneCustom)tabContainer;
+            if(tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()) != null){
+                tabbedPane.getjPanelForTab(tabbedPane.getSelectedIndex()).setTitle(newTitle);
+                tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), newTitle);
+            }
+        }
+
+    }
+
     public void setWasEdited(boolean newWasEdited){
 
         Container tabContainer = getParent().getParent().getParent().getParent();

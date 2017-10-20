@@ -9,6 +9,7 @@ import components.JTextPaneCustom;
 import helpers.DocumentManager;
 import helpers.History;
 import components.JScrollPaneCustom;
+import interfaces.Documentable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,6 +75,7 @@ public class KeyListenerWithHistory implements KeyListener {
                     jScrollPaneDocument.getFile().setText(textPane.getText());
                     documentManager.saveDocument(jScrollPaneDocument.getFile());
                     textPane.setWasEdited(false);
+                    textPane.setSelectedTabTitle(jScrollPaneDocument.getFile().getName());
                 } catch (NotOpenDocumentException e1) {
                     e1.printStackTrace();
                 }
@@ -88,7 +90,9 @@ public class KeyListenerWithHistory implements KeyListener {
 
         }else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             Container auxContainer = textPane.getParent().getParent().getParent().getParent();
-            documentManager.createEmptyDocumentAndNewTab();
+            Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
+            documentManager.getTabbedPane().addTabFromFile(newDocument);
+            documentManager.getTabbedPane().getjScrollPaneCustom().get(documentManager.getTabbedPane().getjScrollPaneCustom().size()-1).setIsNewDocument(true);
 
         }else if(e.getKeyChar() != '\uFFFF'){
             int keyLocation = textPane.getCaretPosition();

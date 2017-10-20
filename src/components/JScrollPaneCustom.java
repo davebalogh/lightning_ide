@@ -68,7 +68,7 @@ public class JScrollPaneCustom extends JScrollPane {
         isNewDocument = true;
     }
 
-    public JScrollPaneCustom(Documentable existingFile) throws NotOpenDocumentException{
+    public JScrollPaneCustom(Documentable existingFile){
         file = existingFile;
         name = existingFile.getName();
         isNewDocument = false;

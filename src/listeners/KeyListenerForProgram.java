@@ -1,6 +1,7 @@
 package listeners;
 
 import helpers.DocumentManager;
+import interfaces.Documentable;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,7 +23,9 @@ public class KeyListenerForProgram  implements KeyListener {
         if ((e.getKeyCode() == KeyEvent.VK_O) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
             documentManager.openDocumentAndAddToJTabbedPane();
         }else if ((e.getKeyCode() == KeyEvent.VK_T) && (((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) || ((e.getModifiers() & KeyEvent.VK_META) != 0)) ) {
-            documentManager.createEmptyDocumentAndNewTab();
+            Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
+            documentManager.getTabbedPane().addTabFromFile(newDocument);
+            documentManager.getTabbedPane().getjScrollPaneCustom().get(documentManager.getTabbedPane().getjScrollPaneCustom().size()-1).setIsNewDocument(true);
         }
     }
 

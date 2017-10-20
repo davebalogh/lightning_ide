@@ -79,7 +79,7 @@ public class JTabbedPaneCustom extends JTabbedPane {
     }
 
 
-    public JTabAndPane addTabFromFile(Documentable openFile) throws NotOpenDocumentException{
+    public JTabAndPane addTabFromFile(Documentable openFile){
         lastJSCrollPaneAdded = new JScrollPaneCustom(openFile);
         lastJSCrollPaneAdded.setDocumentManager(documentManager);
         lastJSCrollPaneAdded.initialize(openFile.getText());

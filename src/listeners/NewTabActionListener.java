@@ -2,6 +2,7 @@ package listeners;
 
 import components.JTabbedPaneCustom;
 import helpers.DocumentManager;
+import interfaces.Documentable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,8 @@ public class NewTabActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        documentManager.createEmptyDocumentAndNewTab();
+        Documentable newDocument = documentManager.createEmptyDocumentAndNewTab();
+        tabbedPane.addTabFromFile(newDocument);
+        tabbedPane.getjScrollPaneCustom().get(tabbedPane.getjScrollPaneCustom().size()-1).setIsNewDocument(true);
     }
 }

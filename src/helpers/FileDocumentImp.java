@@ -17,6 +17,7 @@ public class FileDocumentImp implements Documentable {
     private String name;
     private boolean isEdited = false;
     private boolean isNewDocument = false;
+    private boolean isSaveAs;
 
     public static String getOpenFilesFolderName(){
         return "open_files";
@@ -74,6 +75,16 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
+    public void setSaveAs(boolean isSaveAs) {
+        this.isSaveAs = isSaveAs;
+    }
+
+    @Override
+    public boolean getIsSaveAs() {
+        return this.isSaveAs;
+    }
+
+    @Override
     public File getFile() throws NotOpenDocumentException {
         if(file != null){
             return file;
@@ -84,13 +95,8 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public String getText() throws NotOpenDocumentException {
-        if(file != null){
-            return text;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public String getText() {
+        return text;
     }
 
     @Override
@@ -190,9 +196,26 @@ public class FileDocumentImp implements Documentable {
 
     @Override
     public boolean saveDocument(File documentToSave, String newTextToSave) throws SaveDocumentException {
+        if(this.isNewDocument && !this.isSaveAs){
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Files.delete(Paths.get(file.getAbsolutePath()));
+                } catch (IOException e) {
+                    throw new SaveDocumentException();
+                }
+                file = fileChooser.getSelectedFile();
+                this.name = file.getName();
+                this.isNewDocument = false;
+            }
+            else{
+                return false;
+            }
+        }
+
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter( new FileWriter( documentToSave.getAbsoluteFile()));
+            writer = new BufferedWriter( new FileWriter( file.getAbsoluteFile()));
             writer.write( newTextToSave);
         }
         catch ( IOException e) {
@@ -263,6 +286,9 @@ public class FileDocumentImp implements Documentable {
         else if (answer == JOptionPane.CANCEL_OPTION) {
             return false;
         }else{
+            if(this.isNewDocument){
+                deleteDocument(documentForClose);
+            }
             return true;
         }
     }
@@ -303,13 +329,8 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public String getName() throws NotOpenDocumentException {
-        if(file != null){
-            return name;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public String getName() {
+        return name;
     }
 
     @Override

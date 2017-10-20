@@ -26,7 +26,6 @@ public class CloseTabActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-
         Component selectedComponent = null;
         int selectedIndex = 0;
 
@@ -37,7 +36,6 @@ public class CloseTabActionListener implements ActionListener {
 
         if(source instanceof JButton){
             JButton clickedButton = (JButton)source;
-
             Container jPanelTab = clickedButton.getParent();
             selectedIndex = tabbedPane.indexOfTab(((JPanelForTab)jPanelTab).getTitle());
             selectedComponent = tabbedPane.getComponentAt(selectedIndex);
@@ -46,38 +44,12 @@ public class CloseTabActionListener implements ActionListener {
 
         if (selectedComponent != null && selectedComponent instanceof JScrollPaneCustom) {
             JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent;
+            String textModified = selectedTab.getTextPane().getText();
+            boolean response = documentManager.closeDocumentAndTab(selectedTab.getFile(), textModified);
 
-            try {
-                if (selectedTab.getFile().getIsEdited()) {
-                    selectedTab.getFile().setText(selectedTab.getTextPane().getText());
-                    boolean response = documentManager.getDocumentHashMap().get(selectedTab.getFile().getUniqueName()).closeModifiedDocument();
-
-                    if (response) {
-                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
-                        tabbedPane.remove(selectedIndex);
-                    }
-
-                } else {
-                    if(selectedTab.getFile().getIsNewDocument()){
-                        documentManager.deleteDocument(selectedTab.getFile());
-                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
-                        tabbedPane.remove(selectedIndex);
-                        documentManager.getDocumentHashMap().remove(selectedTab.getFile().getUniqueName());
-                    }
-                    else {
-                        tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
-                        tabbedPane.remove(selectedIndex);
-                        documentManager.getDocumentHashMap().remove(selectedTab.getFile().getUniqueName());
-                    }
-                }
-            } catch (NotOpenDocumentException e1) {
-                e1.printStackTrace();
-            } catch (CloseDocumentException e1) {
-                e1.printStackTrace();
-            } catch (SaveDocumentException e1) {
-                e1.printStackTrace();
-            } catch (DeleteDocumentException e1) {
-                e1.printStackTrace();
+            if(response){
+                tabbedPane.getjPanelForTabList().remove(tabbedPane.getjPanelForTab(selectedIndex));
+                tabbedPane.remove(selectedIndex);
             }
         }
     }
