@@ -18,9 +18,9 @@ public class CloseTabActionListener implements ActionListener {
     private JTabbedPaneCustom tabbedPane;
     private DocumentManager documentManager;
 
-    public CloseTabActionListener(JTabbedPaneCustom instanceOfTabbedPane) {
-        tabbedPane = instanceOfTabbedPane;
-        documentManager = tabbedPane.getDocumentManager();
+    public CloseTabActionListener(DocumentManager documentManager) {
+        this.documentManager = documentManager;
+        tabbedPane = documentManager.getTabbedPane();
     }
 
     @Override
@@ -40,7 +40,6 @@ public class CloseTabActionListener implements ActionListener {
             selectedIndex = tabbedPane.indexOfTab(((JPanelForTab)jPanelTab).getTitle());
             selectedComponent = tabbedPane.getComponentAt(selectedIndex);
         }
-
 
         if (selectedComponent != null && selectedComponent instanceof JScrollPaneCustom) {
             JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent;

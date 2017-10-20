@@ -42,9 +42,9 @@ class LightningIDE extends JFrame{
         getContentPane().add(panelManager.getContentCenterPane(), BorderLayout.CENTER);
         getContentPane().add(panelManager.getContentBottomPane(), BorderLayout.SOUTH);
 
-        this.addWindowListener(new CloseWindowAdapter(tabbedPane, documentManager));
+        this.addWindowListener(new CloseWindowAdapter(documentManager));
 
-        setJMenuBar(new JMenuBarCustom(tabbedPane, documentManager));
+        setJMenuBar(new JMenuBarCustom(documentManager));
         setAlwaysOnTop(true);
         setAlwaysOnTop(false);
 

@@ -20,9 +20,9 @@ public class CloseWindowAdapter extends WindowAdapter {
     JTabbedPaneCustom currentTabbedPane;
     private DocumentManager documentManager;
 
-    public CloseWindowAdapter(JTabbedPaneCustom instanceOfJTabbedPaneCustom, DocumentManager instanceOfDocumentManager){
-        currentTabbedPane = instanceOfJTabbedPaneCustom;
+    public CloseWindowAdapter(DocumentManager instanceOfDocumentManager){
         documentManager = instanceOfDocumentManager;
+        currentTabbedPane = documentManager.getTabbedPane();
     }
 
     @Override
@@ -34,7 +34,11 @@ public class CloseWindowAdapter extends WindowAdapter {
                 JScrollPaneCustom jScrollPaneCustom = (JScrollPaneCustom)currentTab;
                 jScrollPaneCustom.getFile().setSaveAs(true);
                 jScrollPaneCustom.getFile().setText(jScrollPaneCustom.getTextPane().getText());
-                documentManager.closeDocument(jScrollPaneCustom.getFile());
+                boolean response = documentManager.closeDocument(jScrollPaneCustom.getFile());
+
+                if(response == false){
+                    return;
+                }
             }
         }
 

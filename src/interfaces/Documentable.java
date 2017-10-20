@@ -5,8 +5,8 @@ import exceptions.*;
 import java.io.File;
 
 public interface Documentable {
-    public boolean getIsEdited() throws NotOpenDocumentException;
-    public void setIsEdited(boolean isEdited) throws NotOpenDocumentException;
+    public boolean getIsEdited();
+    public void setIsEdited(boolean isEdited);
     public boolean getIsNewDocument() throws NotOpenDocumentException;
     public void setIsNewDocument(boolean isNewDocument) throws NotOpenDocumentException;
     public void setSaveAs(boolean isSaveAs);
@@ -27,4 +27,5 @@ public interface Documentable {
     public boolean closeModifiedDocument() throws CloseDocumentException, SaveDocumentException, NotOpenDocumentException, DeleteDocumentException;
     public File[] getOpenDocumentsList() throws DocumentException;
     public Documentable getNewInstance();
+    public boolean isBinaryDocument(File fileToCheck) throws BinaryDocumentException, OpenDocumentException;
 }

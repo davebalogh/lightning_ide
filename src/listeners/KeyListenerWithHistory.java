@@ -101,6 +101,7 @@ public class KeyListenerWithHistory implements KeyListener {
             if(auxContainer instanceof JScrollPaneCustom){
                 JScrollPaneCustom jScrollPaneDocument = (JScrollPaneCustom)auxContainer;
                 jScrollPaneDocument.getFile().setText(textToSave);
+                jScrollPaneDocument.getFile().setIsEdited(true);
             }
         }
     }

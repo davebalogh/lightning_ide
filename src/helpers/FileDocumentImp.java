@@ -35,23 +35,13 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public boolean getIsEdited() throws NotOpenDocumentException {
-        if(file != null){
-            return isEdited;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public boolean getIsEdited() {
+        return isEdited;
     }
 
     @Override
-    public void setIsEdited(boolean isEdited) throws NotOpenDocumentException {
-        if(file != null){
-            this.isEdited = isEdited;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public void setIsEdited(boolean isEdited) {
+        this.isEdited = isEdited;
     }
 
     @Override
@@ -102,7 +92,6 @@ public class FileDocumentImp implements Documentable {
     @Override
     public void setText(String textModified) {
         text = textModified;
-        isEdited = true;
     }
 
     @Override
@@ -336,5 +325,43 @@ public class FileDocumentImp implements Documentable {
         else{
             throw new NotOpenDocumentException();
         }
+    }
+
+    /**
+     *  Guess whether given file is binary. Just checks for anything under 0x09.
+     */
+    public boolean isBinaryDocument(File fileToCheck) throws BinaryDocumentException, OpenDocumentException{
+        int size = 0;
+        int other = 0;
+        int ascii = 0;
+
+        try {
+            FileInputStream fileToCheckInputStream = new FileInputStream(fileToCheck);
+            size = fileToCheckInputStream.available();
+            if(size > 1024) size = 1024;
+            byte[] data = new byte[size];
+            fileToCheckInputStream.read(data);
+            fileToCheckInputStream.close();
+
+            for(int i = 0; i < data.length; i++) {
+                byte b = data[i];
+                if( b < 0x09 ) return true;
+
+                if( b == 0x09 || b == 0x0A || b == 0x0C || b == 0x0D ) ascii++;
+                else if( b >= 0x20  &&  b <= 0x7E ) ascii++;
+                else other++;
+            }
+
+            if( other == 0 ) {
+                return false;
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new OpenDocumentException();
+        }catch (IOException e) {
+            throw new BinaryDocumentException();
+        }
+
+        return 100 * other / (ascii + other) > 95;
     }
 }

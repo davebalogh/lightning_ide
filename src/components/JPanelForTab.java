@@ -24,7 +24,7 @@ public class JPanelForTab extends JPanel {
         jLabel.setFont(newFont);
     }
 
-    public JPanelForTab(JTabbedPane parentJTabbedPane, String tabTitle){
+    public JPanelForTab(JTabbedPaneCustom parentJTabbedPane, String tabTitle){
         super();
         this.setBackground(new Color(49, 52, 64));
 
@@ -39,7 +39,7 @@ public class JPanelForTab extends JPanel {
         closeButton.setContentAreaFilled(false);
         closeButton.setBorder(BorderFactory.createEmptyBorder(0, 5,0,0));
         closeButton.setBorderPainted(false);
-        closeButton.addActionListener(new CloseTabActionListener((JTabbedPaneCustom) parentJTabbedPane));
+        closeButton.addActionListener(new CloseTabActionListener(parentJTabbedPane.getDocumentManager()));
 
         this.add(jLabel);
         this.add(closeButton);

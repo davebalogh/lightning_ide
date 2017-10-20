@@ -3,12 +3,8 @@ package helpers;
 import components.JTabbedPaneCustom;
 import exceptions.*;
 import interfaces.Documentable;
-
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.util.*;
 
 public class DocumentManager {
@@ -65,7 +61,7 @@ public class DocumentManager {
         return true;
     }
 
-    public void closeDocument(Documentable documentToClose){
+    public boolean closeDocument(Documentable documentToClose){
         try {
             if (documentToClose.getIsEdited()) {
 
@@ -78,6 +74,9 @@ public class DocumentManager {
                     if (response) {
                         documentHashMap.remove(documentToClose.getUniqueName());
                     }
+                    else{
+                        return false;
+                    }
                 }
             }
         } catch (NotOpenDocumentException e1) {
@@ -89,6 +88,8 @@ public class DocumentManager {
         } catch (DeleteDocumentException e) {
             e.printStackTrace();
         }
+
+        return true;
     }
 
     public void deleteDocument(Documentable documentToDelete){
@@ -137,13 +138,22 @@ public class DocumentManager {
                     return;
                 }
             }
+
+            if(newDocument.isBinaryDocument(newDocument.getFile())){
+                Messages.showError("You cannot open this kind of files");
+                return;
+            }
+
             documentHashMap.put(newDocument.getUniqueName(), newDocument);
             newDocument.setIsNewDocument(false);
+            newDocument.setIsEdited(false);
             tabbedPane.addTabFromFile(newDocument);
         } catch (NotOpenDocumentException e) {
             Messages.showError("Error. Document not opened.");
         } catch (OpenDocumentException e) {
-            Messages.showError("Error opening document.");;
+            Messages.showError("Error opening document.");
+        } catch (BinaryDocumentException e) {
+            Messages.showError("Error opening binary document.");
         }
     }
 
