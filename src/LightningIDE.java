@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -23,7 +22,7 @@ class LightningIDE extends JFrame{
         panelManager.setContentCenterPane(tabbedPane);
         panelManager.setContentBottomPane(contentBottom);
 
-        DocumentManager documentManager = new DocumentManager(panelManager, new FileDocumentImp());
+        DocumentManager documentManager = new DocumentManager(panelManager, new FileDocumentImpl());
 
         ArrayList<Documentable> documentList = documentManager.loadOpenTabs();
         for(Documentable document: documentList){

@@ -85,20 +85,20 @@ public class JTabbedPaneCustom extends JTabbedPane {
 
 
     public JTabAndPane addTabFromFile(Documentable openFile){
-        lastJSCrollPaneAdded = new JScrollPaneCustom(openFile);
-        lastJSCrollPaneAdded.setDocumentManager(documentManager);
-        lastJSCrollPaneAdded.initialize(openFile.getText());
+        JPanelWithTree jPanelWithTree = new JPanelWithTree(documentManager, openFile);
+        lastJSCrollPaneAdded = jPanelWithTree.getjScrollPaneCustom();
         jScrollPaneCustomList.add(lastJSCrollPaneAdded);
 
         jScrollPaneCustom.add(lastJSCrollPaneAdded);
         int tabCount = this.getTabCount() + 1;
         String tabName = openFile.getName();
-        this.addTab(tabName, lastJSCrollPaneAdded);
+        this.addTab(tabName, jPanelWithTree);
         int selectedIndex = tabCount-1;
         this.setSelectedIndex(selectedIndex);
 
         JPanelForTab newTab = new JPanelForTab(this, tabName);
         this.setCustomTabComponentAt(selectedIndex, newTab);
+
 
         return new JTabAndPane(lastJSCrollPaneAdded, newTab);
     }

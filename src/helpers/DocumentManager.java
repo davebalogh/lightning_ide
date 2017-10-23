@@ -186,6 +186,20 @@ public class DocumentManager {
         return documentList;
     }
 
+    public ArrayList<File> getSiblingDocuments(File file){
+        ArrayList<File> siblingList = new ArrayList<>();
+        try {
+            File[] fileArray = documentable.getSiblingDocuments(file);
+            for (File singleFile: fileArray) {
+                siblingList.add(singleFile);
+            }
+        } catch (NotOpenDocumentException e) {
+            Messages.showError("Error. Document not opened.");
+        }
+
+        return siblingList;
+    }
+
     public HashMap<String, Documentable> getDocumentHashMap() {
         return documentHashMap;
     }

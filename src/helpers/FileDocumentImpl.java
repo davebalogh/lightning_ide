@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileDocumentImp implements Documentable {
+public class FileDocumentImpl implements Documentable {
 
     private String text;
     private File file;
@@ -24,13 +24,13 @@ public class FileDocumentImp implements Documentable {
     }
 
     public static Path getOpenFilesFolderPath() throws URISyntaxException {
-        String openFilesPathString = FileDocumentImp.getOpenFileDirectory();
+        String openFilesPathString = FileDocumentImpl.getOpenFileDirectory();
         return Paths.get(openFilesPathString);
     }
 
     public static String getOpenFileDirectory() throws URISyntaxException{
         String programPath = Configuration.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-        String openFilesPathString = programPath + "/" + FileDocumentImp.getOpenFilesFolderName();
+        String openFilesPathString = programPath + "/" + FileDocumentImpl.getOpenFilesFolderName();
         return openFilesPathString;
     }
 
@@ -45,23 +45,13 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public boolean getIsNewDocument() throws NotOpenDocumentException {
-        if(file != null){
-            return this.isNewDocument;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public boolean getIsNewDocument() {
+        return this.isNewDocument;
     }
 
     @Override
-    public void setIsNewDocument(boolean isNewDocument) throws NotOpenDocumentException {
-        if(file != null){
-            this.isNewDocument = isNewDocument;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public void setIsNewDocument(boolean isNewDocument) {
+        this.isNewDocument = isNewDocument;
     }
 
     @Override
@@ -75,13 +65,8 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
-    public File getFile() throws NotOpenDocumentException {
-        if(file != null){
-            return file;
-        }
-        else{
-            throw new NotOpenDocumentException();
-        }
+    public File getFile() {
+        return file;
     }
 
     @Override
@@ -101,7 +86,7 @@ public class FileDocumentImp implements Documentable {
         String tabName = "Tab-" + generalLastNumber;
         this.isNewDocument = true;
         try {
-            File openFilesDirectory = new File(FileDocumentImp.getOpenFileDirectory());
+            File openFilesDirectory = new File(FileDocumentImpl.getOpenFileDirectory());
             for (final File fileEntry : openFilesDirectory.listFiles()) {
                 if (!fileEntry.isDirectory()) {
                     String nameOfFile = fileEntry.getName();
@@ -117,7 +102,7 @@ public class FileDocumentImp implements Documentable {
                 }
             }
 
-            newDocument = new File(FileDocumentImp.getOpenFileDirectory() + "/" + tabName);
+            newDocument = new File(FileDocumentImpl.getOpenFileDirectory() + "/" + tabName);
             newDocument.createNewFile();
             name = tabName;
 
@@ -291,8 +276,8 @@ public class FileDocumentImp implements Documentable {
     public File[] getOpenDocumentsList() throws DocumentException, SecurityException {
         File[] documentList = null;
         try {
-            Path openFilesPath = FileDocumentImp.getOpenFilesFolderPath();
-            File openFilesDirectory = new File(FileDocumentImp.getOpenFileDirectory());
+            Path openFilesPath = FileDocumentImpl.getOpenFilesFolderPath();
+            File openFilesDirectory = new File(FileDocumentImpl.getOpenFileDirectory());
 
             if (Files.notExists(openFilesPath)) {
                 openFilesDirectory.mkdir();
@@ -308,8 +293,25 @@ public class FileDocumentImp implements Documentable {
     }
 
     @Override
+    public File[] getSiblingDocuments() throws NotOpenDocumentException {
+        if(file != null){
+            File openFileDirectory = file.getParentFile();
+            return openFileDirectory.listFiles();
+        }
+        else{
+            throw new NotOpenDocumentException();
+        }
+    }
+
+    @Override
+    public File[] getSiblingDocuments(File fileToOpen) throws NotOpenDocumentException {
+        this.file = fileToOpen;
+        return  getSiblingDocuments();
+    }
+
+    @Override
     public Documentable getNewInstance() {
-        return new FileDocumentImp();
+        return new FileDocumentImpl();
     }
 
     @Override

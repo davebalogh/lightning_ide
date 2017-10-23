@@ -7,11 +7,11 @@ import java.io.File;
 public interface Documentable {
     public boolean getIsEdited();
     public void setIsEdited(boolean isEdited);
-    public boolean getIsNewDocument() throws NotOpenDocumentException;
-    public void setIsNewDocument(boolean isNewDocument) throws NotOpenDocumentException;
+    public boolean getIsNewDocument();
+    public void setIsNewDocument(boolean isNewDocument);
     public void setSaveAs(boolean isSaveAs);
     public boolean getIsSaveAs();
-    public File getFile() throws NotOpenDocumentException;
+    public File getFile();
     public String getText();
     public void setText(String textModified);
     public String getName();
@@ -26,6 +26,8 @@ public interface Documentable {
     public boolean closeModifiedDocument(File documentForClose, String newTextModified) throws CloseDocumentException, SaveDocumentException, DeleteDocumentException;
     public boolean closeModifiedDocument() throws CloseDocumentException, SaveDocumentException, NotOpenDocumentException, DeleteDocumentException;
     public File[] getOpenDocumentsList() throws DocumentException;
+    public File[] getSiblingDocuments() throws NotOpenDocumentException;
+    public File[] getSiblingDocuments(File file) throws NotOpenDocumentException;
     public Documentable getNewInstance();
     public boolean isBinaryDocument(File fileToCheck) throws BinaryDocumentException, OpenDocumentException;
 }

@@ -1,6 +1,7 @@
 package listeners;
 
 import components.JPanelForTab;
+import components.JPanelWithTree;
 import components.JTabbedPaneCustom;
 import exceptions.*;
 import components.JScrollPaneCustom;
@@ -41,8 +42,9 @@ public class CloseTabActionListener implements ActionListener {
             selectedComponent = tabbedPane.getComponentAt(selectedIndex);
         }
 
-        if (selectedComponent != null && selectedComponent instanceof JScrollPaneCustom) {
-            JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent;
+        if (selectedComponent != null && selectedComponent instanceof JPanelWithTree) {
+            JPanelWithTree jPanelWithTree = (JPanelWithTree)selectedComponent;
+            JScrollPaneCustom selectedTab = jPanelWithTree.getjScrollPaneCustom();
             String textModified = selectedTab.getTextPane().getText();
             boolean response = documentManager.closeDocumentAndTab(selectedTab.getFile(), textModified);
 
