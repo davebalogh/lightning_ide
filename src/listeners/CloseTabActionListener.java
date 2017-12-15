@@ -42,9 +42,9 @@ public class CloseTabActionListener implements ActionListener {
             selectedComponent = tabbedPane.getComponentAt(selectedIndex);
         }
 
-        if (selectedComponent != null && selectedComponent instanceof JPanelWithTree) {
-            JPanelWithTree jPanelWithTree = (JPanelWithTree)selectedComponent;
-            JScrollPaneCustom selectedTab = jPanelWithTree.getjScrollPaneCustom();
+        if (selectedComponent != null && selectedComponent instanceof JScrollPaneCustom) {
+            //JPanelWithTree jPanelWithTree = (JPanelWithTree)selectedComponent;
+            JScrollPaneCustom selectedTab = (JScrollPaneCustom) selectedComponent; //jPanelWithTree.getjScrollPaneCustom();
             String textModified = selectedTab.getTextPane().getText();
             boolean response = documentManager.closeDocumentAndTab(selectedTab.getFile(), textModified);
 

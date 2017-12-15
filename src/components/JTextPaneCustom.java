@@ -30,7 +30,7 @@ public class JTextPaneCustom extends JTextPane {
 
     public void setWasEdited(boolean newWasEdited){
 
-        Container tabContainer = getParent().getParent().getParent().getParent().getParent();
+        Container tabContainer = getParent().getParent().getParent().getParent();//.getParent();
 
         if(tabContainer instanceof JTabbedPaneCustom){
             JTabbedPaneCustom tabbedPane = (JTabbedPaneCustom)tabContainer;

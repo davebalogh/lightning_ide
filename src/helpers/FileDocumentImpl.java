@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class FileDocumentImpl implements Documentable {
 
@@ -82,11 +83,13 @@ public class FileDocumentImpl implements Documentable {
     @Override
     public File newDocument() throws NewDocumentException {
         File newDocument = null;
-        int generalLastNumber = 1;
-        String tabName = "Tab-" + generalLastNumber;
+        String tabName = "";
         this.isNewDocument = true;
+
         try {
             File openFilesDirectory = new File(FileDocumentImpl.getOpenFileDirectory());
+            int generalLastNumber = openFilesDirectory.listFiles().length;
+            tabName = "Tab-" + generalLastNumber;
             for (final File fileEntry : openFilesDirectory.listFiles()) {
                 if (!fileEntry.isDirectory()) {
                     String nameOfFile = fileEntry.getName();
@@ -289,6 +292,7 @@ public class FileDocumentImpl implements Documentable {
             throw new DocumentException();
         }
 
+        Arrays.sort(documentList);
         return documentList;
     }
 
